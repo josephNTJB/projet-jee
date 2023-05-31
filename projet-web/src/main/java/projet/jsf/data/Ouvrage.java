@@ -5,50 +5,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 @SuppressWarnings("serial")
-public class Personne implements Serializable {
+public class Ouvrage implements Serializable {
 
 
 	// Champs
 	
 	private Integer			id;
 	
-	@NotBlank( message = "Le nom doit être renseigné")
+	@NotBlank( message = "L'auteur doit etre renseigné")
 	@Size(max=25, message = "Valeur trop longue pour le nom : 25 car. maxi" )
-	private String			nom;
-	
-	@NotBlank( message = "Le username doit être renseigné et unque")
-	@JoinColumn(name="username", referencedColumnName="id")
-	@Size(max=25, message = "Valeur trop longue pour le nom : 25 car. maxi" )
-	private Compte			compte;
+	private String			auteur;
 
-	@NotBlank( message = "Le prénom doit être renseigné")
+	@NotBlank( message = "Le nom doit etre renseigné")
 	@Size(max=25, message = "Valeur trop longue pour le prénom : 25 car. maxi" )
-	private String		prenom;
+	private String			nom;
 
 	@NotNull( message = "La catégorie est obligatoire")
-	private Categorie		categorie;
+	private Personne		personne;
 
-	private List<Ouvrage> ouvrages = new ArrayList<>();
+	private List<Categorie>	categories = new ArrayList<>();
 
 	
 	// Constructeurs
 	
-	public Personne() {
+	public Ouvrage() {
 	}
 
-	public Personne(Integer id, String nom, String prenom, Compte compte) {
+	public Ouvrage(Integer id, String nom, String auteur, Personne personne) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.prenom = prenom;
-		this.compte = compte;
+		this.auteur = auteur;
+		this.personne = personne;
 	}
 	
 	
@@ -70,28 +64,28 @@ public class Personne implements Serializable {
 		this.nom = nom;
 	}
 
-	public String getPrenom() {
-		return prenom;
+	public Personne getPersonne() {
+		return personne;
 	}
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setPersonne(Personne personne) {
+		this.personne = personne;
 	}
 
-	public Compte getCompte() {
-		return compte;
+	public String getAuteur() {
+		return auteur ;
 	}
 
-	public void setCompte(Compte compte) {
-		this.compte = compte;
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
 	}
 
-	public List<Ouvrage> getOuvrages() {
-		return ouvrages;
+	public List<Categorie> getCategories() {
+		return categories;
 	}
 
-	public void setOuvrages(List<Ouvrage> ouvrages) {
-		this.ouvrages = ouvrages;
+	public void setCategories(List<Categorie> categories) {
+		this.categories = categories;
 	}
 
 	
@@ -110,7 +104,7 @@ public class Personne implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		var other = (Personne) obj;
+		var other = (Ouvrage) obj;
 		return Objects.equals(id, other.id);
 	}
 	
