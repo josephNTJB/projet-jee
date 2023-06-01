@@ -11,14 +11,15 @@ import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import projet.ejb.dao.IDaoCategorie;
-import projet.ejb.data.Categorie;
+import projet.ejb.dao.IDaoOuvrage;
+import projet.ejb.data.Ouvrage;
+import projet.ejb.data.Ouvrage;
 
 
 @Stateless
 @Local
 @TransactionAttribute( MANDATORY )
-public class DaoOuvrage implements IDaoCategorie {
+public class DaoOuvrage implements IDaoOuvrage {
 
 	
 	// Champs
@@ -30,35 +31,59 @@ public class DaoOuvrage implements IDaoCategorie {
 	// Actions
 	
 	@Override
-	public int inserer(Categorie categorie) {
-		em.persist(categorie);
-		em.flush();
-		return categorie.getId();
+	public int inserer(Ouvrage ouvrage) {
+
 	}
 
 	@Override
-	public void modifier(Categorie categorie) {
-		em.merge( categorie );
+	public void modifier(Ouvrage ouvrage) {
+		em.merge( ouvrage );
 	}
 
 	@Override
-	public void supprimer(int idCategorie) {
-		em.remove( retrouver(idCategorie) );
-	}
-
-	@Override
-	@TransactionAttribute( NOT_SUPPORTED )
-	public Categorie retrouver(int idCategorie) {
-		return em.find( Categorie.class, idCategorie );
+	public void supprimer(int idOuvrage) {
+		em.remove( retrouver(idOuvrage) );
 	}
 
 	@Override
 	@TransactionAttribute( NOT_SUPPORTED )
-	public List<Categorie> listerTout() {
+	public Ouvrage retrouver(int idOuvrage) {
+		return em.find( Ouvrage.class, idOuvrage );
+	}
+
+	@Override
+	@TransactionAttribute( NOT_SUPPORTED )
+	public List<Ouvrage> listerTout() {
 		em.clear();
-		var jpql = "SELECT c FROM Categorie c ORDER BY c.libelle";
-		var query = em.createQuery( jpql, Categorie.class );
+		var jpql = "SELECT c FROM Ouvrage c ORDER BY c.libelle";
+		var query = em.createQuery( jpql, Ouvrage.class );
 		return query.getResultList();
+	}
+
+	@Override
+	public int insererPourPersonne(Ouvrage ouvrage) {
+		em.persist(ouvrage);
+		em.flush();
+		return ouvrage.getId();
+		
+	}
+
+	@Override
+	public void modifierPourPersonne(Ouvrage ouvrage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void supprimerPourPersonne(int idOuvrage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Ouvrage> listerPourPersonne(Ouvrage ouvrage) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

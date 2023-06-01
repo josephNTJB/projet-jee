@@ -4,7 +4,9 @@ SET search_path TO bibliotheque;
 
 
 -- Schéma
-
+DROP SCHEMA IF EXISTS bibliotheque CASCADE;
+CREATE SCHEMA bibliotheque AUTHORIZATION bibliotheque;
+GRANT ALL PRIVILEGES ON SCHEMA bibliotheque TO bibliotheque;
 ------------------------------------------------------------
 --        Script Postgre 
 ------------------------------------------------------------
