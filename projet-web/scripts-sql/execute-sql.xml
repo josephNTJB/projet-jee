@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ====================================================================== 
-     03/2022                                                       
+     09/2022
 
-     projet-sql
+     contacts-sql
                    
      ====================================================================== -->
-<project name="projet-sql" >
+<project name="contacts-sql" >
 
 	
     <!-- ================================= 
           Paramètres généraux              
          ================================= -->
 
-	<property file="jdbc.properties" />
+	<property file="../../contacts-emb/src/main/resources/META-INF//jdbc.properties" />
 	
 	<property name="dir.sql" location="." />
 	
