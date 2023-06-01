@@ -8,12 +8,12 @@ import projet.ejb.data.Ouvrage;
 
 public interface IDaoOuvrage {
 
-	void insererPourPersonne(Personne personne);
+	void insererPourPersonne(Ouvrage ouvrage);
 
-	void modifierPourPersonne(Personne personne);
+	void modifierPourPersonne(Ouvrage ouvrage);
 
-	void supprimerPourPersonne(int idPersonne);
+	void supprimerPourPersonne(int idOuvrage);
 
-	List<Ouvrage> listerPourPersonne( Personne personne );
+	List<Ouvrage> listerPourPersonne( Ouvrage ouvrage );
 
 }
