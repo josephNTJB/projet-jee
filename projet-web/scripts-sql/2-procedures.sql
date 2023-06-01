@@ -1,4 +1,4 @@
-SET search_path TO projet;
+SET search_path TO bibliotheque;
 
 
 -- Supprime tous les triggers du schema
