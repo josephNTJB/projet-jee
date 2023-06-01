@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 
 import projet.ejb.dao.IDaoOuvrage;
 import projet.ejb.data.Ouvrage;
-import projet.ejb.data.Ouvrage;
 
 
 @Stateless
@@ -29,35 +28,11 @@ public class DaoOuvrage implements IDaoOuvrage {
 	
 	
 	// Actions
-	
-	@Override
-	public int inserer(Ouvrage ouvrage) {
-
-	}
-
-	@Override
-	public void modifier(Ouvrage ouvrage) {
-		em.merge( ouvrage );
-	}
-
-	@Override
-	public void supprimer(int idOuvrage) {
-		em.remove( retrouver(idOuvrage) );
-	}
 
 	@Override
 	@TransactionAttribute( NOT_SUPPORTED )
 	public Ouvrage retrouver(int idOuvrage) {
 		return em.find( Ouvrage.class, idOuvrage );
-	}
-
-	@Override
-	@TransactionAttribute( NOT_SUPPORTED )
-	public List<Ouvrage> listerTout() {
-		em.clear();
-		var jpql = "SELECT c FROM Ouvrage c ORDER BY c.libelle";
-		var query = em.createQuery( jpql, Ouvrage.class );
-		return query.getResultList();
 	}
 
 	@Override
@@ -70,20 +45,23 @@ public class DaoOuvrage implements IDaoOuvrage {
 
 	@Override
 	public void modifierPourPersonne(Ouvrage ouvrage) {
-		// TODO Auto-generated method stub
+		em.merge( ouvrage );
 		
 	}
 
 	@Override
 	public void supprimerPourPersonne(int idOuvrage) {
-		// TODO Auto-generated method stub
+		em.remove( retrouver(idOuvrage) );
 		
 	}
 
 	@Override
+	@TransactionAttribute( NOT_SUPPORTED )
 	public List<Ouvrage> listerPourPersonne(Ouvrage ouvrage) {
-		// TODO Auto-generated method stub
-		return null;
+		em.clear();
+		var jpql = "SELECT c FROM Ouvrage c ORDER BY c.libelle";
+		var query = em.createQuery( jpql, Ouvrage.class );
+		return query.getResultList();
 	}
 	
 }
