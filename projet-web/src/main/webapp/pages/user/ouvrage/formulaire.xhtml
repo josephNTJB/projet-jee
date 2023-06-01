@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/template/page-standard.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets">>
+
+	 <f:metadata>
+		 <f:viewParam name="id" value="#{modelOuvrage.courant.id}" />
+		 <f:viewAction action="#{modelOuvrage.actualiserCourant()}" />
+	 </f:metadata>
+
+    <ui:define name="titre">Ouvrage</ui:define>
+
+    <ui:define name="contenu">
+
+	<h:form>
+	
+		<table class="form">
+			<tr>
+				<td>
+					<h:outputLabel for="id">Id :</h:outputLabel>				
+				</td>
+				<td>
+					<h:inputText id="id" size="5" readonly="true"
+						value="#{modelOuvrage.courant.id}" />
+					<br /><h:message for="id" errorClass="error"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputLabel for="nom">Nom :</h:outputLabel>				
+				</td>
+				<td>
+					<h:inputText id="nom" size="25" 
+						value="#{modelOuvrage.courant.nom}" />
+					<br /><h:message for="nom" errorClass="error"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputLabel for="categorie">Categorie :</h:outputLabel>				
+				</td>
+				<td>
+					<h:inputText id="categorie" size="25" 
+						value="#{modelOuvrage.courant.categorie}" />
+					<br /><h:message for="categorie" errorClass="error"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputLabel for="personne">Personne :</h:outputLabel>				
+				</td>
+				<td>
+					<h:inputText id="personne" size="50" 
+						value="#{modelOuvrage.courant.personne}" />
+					<br /><h:message for="personne" errorClass="error"/>
+				</td>
+			</tr>
+			<tr>
+			
+			</tr>
+		</table>
+
+		<br /> 
+		<h:commandButton value="Emprunter" 
+			action="#{modelOuvrage.validerMiseAJour()}" />
+		<h:button value="Retour" outcome="ouvrages" />
+	</h:form>
+
+	</ui:define>
+
+</ui:composition>
