@@ -51,7 +51,7 @@ public class DaoPersonne implements IDaoPersonne {
 	public Personne retrouver(int idPersonne) {
 		var graph = em.createEntityGraph( Personne.class );
 		graph.addAttributeNodes( "categorie" );
-		graph.addAttributeNodes( "telephones" );
+		graph.addAttributeNodes( "ouvrages" );
 		var props = new HashMap<String, Object>();
 		props.put( "javax.persistence.loadgraph", graph );
 		return em.find( Personne.class, idPersonne, props );

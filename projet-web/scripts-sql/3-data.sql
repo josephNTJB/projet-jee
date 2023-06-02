@@ -84,7 +84,14 @@ INSERT INTO etre_ami (id_personne, id_personne_etre_ami) VALUES
   (3, 5),
   (4, 2),
   (2, 3);
- 
+  
+INSERT INTO role (idcompte, role) VALUES 
+( 1, 'ADMINISTRATEUR' ),
+( 1, 'UTILISATEUR' ),
+( 2, 'UTILISATEUR' ),
+( 3, 'UTILISATEUR' ),
+( 4, 'UTILISATEUR' ),
+( 5, 'UTILISATEUR' );
 
  UPDATE PERSONNE 
  SET id_identifiant = ID_PERSONNE;
