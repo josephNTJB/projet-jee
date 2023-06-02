@@ -102,16 +102,16 @@ public class ModelPersonne implements Serializable {
 	}
 	
 	
-	public String ajouterTelephone() {
-		courant.getTelephones().add( new Telephone() );
+	public String ajouterOuvrage() {
+		courant.getOuvrages().add( new Ouvrage() );
 		return null;
 	}
 	
 	
-	public String supprimerTelephone( Telephone telephone ) {
-		for ( int i=0; i < courant.getTelephones().size(); ++i ) {
-			if ( courant.getTelephones().get(i) == telephone ) {
-				courant.getTelephones().remove( i );
+	public String supprimerOuvrage( Ouvrage ouvrage ) {
+		for ( int i=0; i < courant.getOuvrages().size(); ++i ) {
+			if ( courant.getOuvrages().get(i) == ouvrage ) {
+				courant.getOuvrages().remove( i );
 				break;
 			}
 		}

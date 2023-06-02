@@ -19,11 +19,11 @@ public class Ouvrage {
 
 	@Id
 	@GeneratedValue( strategy = IDENTITY )
-	@Column( name = "idOuvrage" )
+	@Column( name = "id_ouvrage" )
 	private int				id;
 	
 	@ManyToOne
-	@JoinColumn( name = "idpersonne" )
+	@JoinColumn( name = "id_personne" )
 	private Personne		personne;
 
 	@Column( name = "auteur" )

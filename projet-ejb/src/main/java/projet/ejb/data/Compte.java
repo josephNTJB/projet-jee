@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table( name = "compte" )
+@Table( name = "identifiant" )
 public class Compte  {
 
 	
@@ -25,16 +25,15 @@ public class Compte  {
 
 	@Id
 	@GeneratedValue( strategy = IDENTITY)
-	@Column( name = "idcompte")
+	@Column( name = "id_identifiant")
 	private int			id;
 	
-	@Column( name = "pseudo")
+	@Column( name = "username")
 	private String		pseudo;
 	
-	@Column( name = "motdepasse")
+	@Column( name = "password")
 	private String		motDePasse;
 	
-	@Column( name = "email")
 	private String		email;
 	
 	@ElementCollection( fetch = EAGER )

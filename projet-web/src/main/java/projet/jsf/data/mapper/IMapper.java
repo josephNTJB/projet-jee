@@ -7,16 +7,15 @@ import projet.commun.dto.DtoCategorie;
 import projet.commun.dto.DtoCompte;
 import projet.commun.dto.DtoOuvrage;
 import projet.commun.dto.DtoPersonne;
-import projet.ejb.data.Categorie;
-import projet.ejb.data.Ouvrage;
-import projet.ejb.data.Personne;
+import projet.jsf.data.Categorie;
+import projet.jsf.data.Ouvrage;
+import projet.jsf.data.Personne;
 import projet.jsf.data.Compte;
 
 
 @Mapper( componentModel = "cdi" )
 public interface IMapper {
   
-
 	// Compte
 	
 	Compte    map( DtoCompte source );

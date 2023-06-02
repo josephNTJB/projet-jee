@@ -23,8 +23,8 @@ public class Personne implements Serializable {
 	@Size(max=25, message = "Valeur trop longue pour le nom : 25 car. maxi" )
 	private String			nom;
 	
-	@NotBlank( message = "Le username doit être renseigné et unque")
-	@JoinColumn(name="username", referencedColumnName="id")
+	@NotBlank( message = "Le username doit être renseigné et unique")
+	@JoinColumn(name="username", referencedColumnName="id_identifiant")
 	@Size(max=25, message = "Valeur trop longue pour le nom : 25 car. maxi" )
 	private Compte			compte;
 
