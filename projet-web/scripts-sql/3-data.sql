@@ -79,11 +79,11 @@ INSERT INTO emprunt (id_ouvrage, id_personne) VALUES
   (2, 5),
   (9, 2);
 
-INSERT INTO etre_ami (id_personne, id_personne_etre_ami) VALUES
-  (1, 3),
-  (3, 5),
-  (4, 2),
-  (2, 3);
+INSERT INTO etre_ami (id_personne, id_ami,is_validate) VALUES
+  (1, 3, true),
+  (3, 5, true),
+  (4, 2, false),
+  (2, 3, false);
   
 INSERT INTO role (idcompte, role) VALUES 
 ( 1, 'ADMINISTRATEUR' ),

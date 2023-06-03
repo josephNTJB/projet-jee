@@ -90,7 +90,6 @@ CREATE TABLE  associer(
 CREATE TABLE  emprunt(
 	id_ouvrage    INT  NOT NULL ,
 	id_personne   INT  NOT NULL  ,
-	is_validate   boolean NOT NULL,
 	CONSTRAINT emprunt_PK PRIMARY KEY (id_ouvrage, id_personne)
 )WITHOUT OIDS;
 
@@ -101,6 +100,7 @@ CREATE TABLE  emprunt(
 CREATE TABLE  etre_ami(
 	 id_personne            INT  NOT NULL ,
 	 id_ami                 INT  NOT NULL  ,
+	 is_validate   boolean NOT NULL,
 	CONSTRAINT etre_ami_PK PRIMARY KEY ( id_personne, id_ami)
 )WITHOUT OIDS;
 
@@ -149,7 +149,7 @@ ALTER TABLE  etre_ami
 
 ALTER TABLE  etre_ami
 	ADD CONSTRAINT etre_ami_personne1_FK
-	FOREIGN KEY ( id_personne_etre_ami)
+	FOREIGN KEY ( id_ami)
 	REFERENCES  personne( id_personne);
 
 ALTER TABLE personne	
