@@ -1,6 +1,7 @@
 package projet.ejb.data;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class Personne {
 	@Column( name = "prenom" )
 	private String			prenom;
 
-	@OneToMany( mappedBy = "personne", cascade = ALL, orphanRemoval = true  )
+	@OneToMany(fetch= EAGER, mappedBy = "personne", cascade = ALL, orphanRemoval = true  )
 	@OrderBy( "nom" )
 	private List<Ouvrage>	ouvrages = new ArrayList<>();
 	

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,7 +22,7 @@ import projet.jsf.util.UtilJsf;
 
 
 @SuppressWarnings("serial")
-@RequestScoped
+@ViewScoped
 @Named
 public class ModelPersonne implements Serializable {
 
@@ -132,12 +133,16 @@ public class ModelPersonne implements Serializable {
 				liste.add( mapper.map( dto ) );
 			}
 		searchResults= liste;
-		System.out.println(searchResults);
+
 	}
 	//inviter un ami
 	public void invite() throws ExceptionValidation {
 		servicePersonne.ajouterAmi(idAmi,courant.getId());
     }
+	//valider une invitation
+		public void validInvitation() throws ExceptionValidation {
+			servicePersonne.validateInvitation(idAmi,courant.getId());
+	    }
 	//recevoir la liste d'invitations
 	public List<Personne> getInvitations() throws ExceptionValidation {
 		if ( liste == null ) {
@@ -158,7 +163,17 @@ public class ModelPersonne implements Serializable {
 			}
 			return listeAmis;
 		}
-
+    //supprimer une amitié -------mechant mechant :) -------------
+		public void brokeUp() throws ExceptionValidation {
+			try {
+				servicePersonne.deleteFriend(idAmi,courant.getId());
+				listeAmis.remove(personne);
+				UtilJsf.messageInfo( "Suppression effectuée avec succès." );
+			} catch (ExceptionValidation e) {
+				UtilJsf.messageError( e ); 
+			}
+			return null;
+	    }
 	public String getSearchText() {
 		return searchText;
 	}
