@@ -27,7 +27,7 @@ public class Personne {
 	
 	@Id
 	@GeneratedValue( strategy = IDENTITY )
-	@Column( name = "idpersonne" )
+	@Column( name = "id_personne" )
 	private int				id;
 	
 	@Column( name = "nom" )
@@ -37,7 +37,7 @@ public class Personne {
 	private String			prenom;
 
 	@OneToMany( mappedBy = "personne", cascade = ALL, orphanRemoval = true  )
-	@OrderBy( "libelle" )
+	@OrderBy( "nom" )
 	private List<Ouvrage>	ouvrages = new ArrayList<>();
 	
 	

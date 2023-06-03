@@ -63,7 +63,16 @@ CREATE TABLE  identifiant(
 	id_personne      INT  NOT NULL  ,
 	CONSTRAINT identifiant_PK PRIMARY KEY (id_identifiant)
 )WITHOUT OIDS;
-
+------------------------------------------------------------
+-- Table: role
+------------------------------------------------------------
+CREATE TABLE role (
+	IdCompte		INT				NOT NULL,
+	Role			VARCHAR(20)		NOT NULL,
+	CHECK( Role IN ('ADMINISTRATEUR','UTILISATEUR') ),	
+	FOREIGN KEY (IdCompte) REFERENCES identifiant (id_identifiant),
+	PRIMARY KEY (IdCompte, Role)
+);
 
 ------------------------------------------------------------
 -- Table: associer

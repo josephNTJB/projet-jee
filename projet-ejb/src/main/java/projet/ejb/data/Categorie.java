@@ -25,9 +25,6 @@ public class Categorie {
 	@Column( name = "libelle" )
     private String      	libelle;
 	
-	@Column( name = "debut" )
-	private LocalDate		debut;
-	
 	// Constructeurs
 
 	public Categorie() {
@@ -58,14 +55,6 @@ public class Categorie {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
-    
-    public LocalDate getDebut() {
-		return debut;
-	}
-    
-    public void setDebut(LocalDate debut) {
-		this.debut = debut;
-	}
     
     
     // soString()

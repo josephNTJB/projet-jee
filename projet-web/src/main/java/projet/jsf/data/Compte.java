@@ -25,10 +25,10 @@ public class Compte implements Serializable  {
 	@Size(max=25, message = "Valeur trop longue pour le mot de passe : 25 car. maxi" )
 	private String		motDePasse;
 
-	@NotBlank( message = "L'adresse e-mail doit être renseigné")
+	/*@NotBlank( message = "L'adresse e-mail doit être renseigné")
 	@Size(max=100, message = "Valeur trop longue pour l'adresse e-mail : 100 car. maxi" )
 	@Email( message = "Adresse e-mail invalide" )
-	private String		email;
+	private String		email;*/
 	
 	private List<String> roles = new ArrayList<>();	
 
@@ -38,12 +38,12 @@ public class Compte implements Serializable  {
 	public Compte() {
 	}
 	
-	public Compte(Integer id, String pseudo, String motDePasse, String email) {
+	public Compte(Integer id, String pseudo, String motDePasse) {
 		super();
 		this.id = id;
 		this.pseudo = pseudo;
 		this.motDePasse = motDePasse;
-		this.email = email;
+		//this.email =pseudo;
 	}
 
 	
@@ -73,13 +73,13 @@ public class Compte implements Serializable  {
 		this.motDePasse = motDePasse;
 	}
 	
-	public String getEmail() {
+	/*public String getEmail() {
 		return email;
 	}
 	
 	public void setEmail(String email) {
 		this.email = email;
-	}
+	}*/
 
 	public List<String> getRoles() {
 		return roles;

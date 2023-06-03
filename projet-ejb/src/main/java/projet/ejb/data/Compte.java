@@ -17,10 +17,9 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table( name = "identifiant")
+@Table( name ="identifiant")
 public class Compte  {
 
-	
 	// Champs
 
 	@Id
@@ -34,13 +33,13 @@ public class Compte  {
 	@Column( name = "password")
 	private String		motDePasse;
 	
-	@Column( name = "username")
-	private String		email;
-	
-	//@ElementCollection( fetch = EAGER )
-	//@CollectionTable( name = "role", joinColumns = @JoinColumn( name = "id_identifiant" ) )
-	//@Column( name = "role")
-	//private List<String> roles = new ArrayList<>();	
+
+	//private String		email;
+
+	@ElementCollection( fetch = EAGER )
+	@CollectionTable( name = "role", joinColumns = @JoinColumn( name = "idCompte" ) )
+	@Column( name = "role")
+	private List<String> roles = new ArrayList<>();	
 	
 	
 	// Constructeurs
@@ -48,11 +47,11 @@ public class Compte  {
 	public Compte() {
 	}
 
-	public Compte(int id, String pseudo, String motDePasse, String email) {
+	public Compte(int id, String pseudo, String motDePasse) {
 		this.id = id;
 		this.pseudo = pseudo;
 		this.motDePasse = motDePasse;
-		this.email = email;
+		//this.email = pseudo;
 	}
 	
 		
@@ -82,13 +81,13 @@ public class Compte  {
 		this.motDePasse = motDePasse;
 	}
 	
-	public String getEmail() {
+	/*public String getEmail() {
 		return email;
 	}
 	
 	public void setEmail(String email) {
 		this.email = email;
-	}
+	}*/
 
 	/*public List<String> getRoles() {
 		return roles;
