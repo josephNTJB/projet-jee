@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table( name = "compte" )
+@Table( name = "identifiant")
 public class Compte  {
 
 	
@@ -25,22 +25,22 @@ public class Compte  {
 
 	@Id
 	@GeneratedValue( strategy = IDENTITY)
-	@Column( name = "idcompte")
+	@Column( name = "id_identifiant")
 	private int			id;
 	
-	@Column( name = "pseudo")
+	@Column( name = "username")
 	private String		pseudo;
 	
-	@Column( name = "motdepasse")
+	@Column( name = "password")
 	private String		motDePasse;
 	
-	@Column( name = "email")
+	@Column( name = "username")
 	private String		email;
 	
-	@ElementCollection( fetch = EAGER )
-	@CollectionTable( name = "role", joinColumns = @JoinColumn( name = "idcompte" ) )
-	@Column( name = "role")
-	private List<String> roles = new ArrayList<>();	
+	//@ElementCollection( fetch = EAGER )
+	//@CollectionTable( name = "role", joinColumns = @JoinColumn( name = "id_identifiant" ) )
+	//@Column( name = "role")
+	//private List<String> roles = new ArrayList<>();	
 	
 	
 	// Constructeurs
@@ -90,13 +90,13 @@ public class Compte  {
 		this.email = email;
 	}
 
-	public List<String> getRoles() {
+	/*public List<String> getRoles() {
 		return roles;
 	}
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
-	}
+	}*/
 
     
 	// equals() et hashcode()
