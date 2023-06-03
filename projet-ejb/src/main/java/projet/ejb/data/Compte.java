@@ -33,8 +33,9 @@ public class Compte  {
 	@Column( name = "password")
 	private String		motDePasse;
 	
+
 	//private String		email;
-	
+
 	@ElementCollection( fetch = EAGER )
 	@CollectionTable( name = "role", joinColumns = @JoinColumn( name = "idCompte" ) )
 	@Column( name = "role")
@@ -88,13 +89,13 @@ public class Compte  {
 		this.email = email;
 	}*/
 
-	public List<String> getRoles() {
+	/*public List<String> getRoles() {
 		return roles;
 	}
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
-	}
+	}*/
 
     
 	// equals() et hashcode()
