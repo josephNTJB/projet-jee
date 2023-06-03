@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import projet.commun.dto.DtoCompte;
 import projet.commun.dto.DtoPersonne;
 import projet.commun.exception.ExceptionValidation;
 import projet.commun.service.IServicePersonne;
@@ -19,7 +21,7 @@ import projet.jsf.util.UtilJsf;
 
 
 @SuppressWarnings("serial")
-@ViewScoped
+@RequestScoped
 @Named
 public class ModelPersonne implements Serializable {
 
@@ -27,8 +29,14 @@ public class ModelPersonne implements Serializable {
 	// Champs
 	
 	private List<Personne>		liste;
+	private List<Personne>		listeAmis;
 	
 	private Personne			courant;
+	private int			idAmi;
+	
+	private String searchText;
+	
+	private List<Personne> searchResults;
 	
 	@EJB
 	private IServicePersonne	servicePersonne;
@@ -116,6 +124,71 @@ public class ModelPersonne implements Serializable {
 			}
 		}
 		return null;
+	}
+	//implementation de la recherche
+	public void search() {
+			liste = new ArrayList<>();
+			for ( DtoPersonne dto : servicePersonne.searchByNameOrSurname(searchText,mapper.map(courant))) {
+				liste.add( mapper.map( dto ) );
+			}
+		searchResults= liste;
+		System.out.println(searchResults);
+	}
+	//inviter un ami
+	public void invite() throws ExceptionValidation {
+		servicePersonne.ajouterAmi(idAmi,courant.getId());
+    }
+	//recevoir la liste d'invitations
+	public List<Personne> getInvitations() throws ExceptionValidation {
+		if ( liste == null ) {
+			liste = new ArrayList<>();
+			for ( DtoPersonne dto : servicePersonne.listerInvitations(courant.getId()) ) {
+				liste.add( mapper.map( dto ) );
+			}
+		}
+		return liste;
+	}
+	//recevoir la liste d'amis
+		public List<Personne> getFriends() throws ExceptionValidation {
+			if (listeAmis == null ) {
+				listeAmis = new ArrayList<>();
+				for ( DtoPersonne dto : servicePersonne.listerAmis(courant.getId()) ) {
+					listeAmis.add( mapper.map( dto ) );
+				}
+			}
+			return listeAmis;
+		}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public List<Personne> getSearchResults() {
+		return searchResults;
+	}
+
+	public void setSearchResults(List<Personne> searchResults) {
+		this.searchResults = searchResults;
+	}
+
+	public int getAmi() {
+		return idAmi;
+	}
+
+	public void setAmi(int idAmi) {
+		this.idAmi = idAmi;
+	}
+
+	public List<Personne> getListeAmis() {
+		return listeAmis;
+	}
+
+	public void setListeAmis(List<Personne> listeAmis) {
+		this.listeAmis = listeAmis;
 	}
 	
 }

@@ -15,6 +15,8 @@ import projet.commun.dto.DtoOuvrage;
 import projet.commun.exception.ExceptionValidation;
 import projet.commun.service.IServicePersonne;
 import projet.ejb.dao.IDaoPersonne;
+import projet.ejb.data.Amitie;
+import projet.ejb.data.AmitiePK;
 import projet.ejb.data.Personne;
 import projet.ejb.data.mapper.IMapperEjb;
 
@@ -64,6 +66,7 @@ public class ServicePersonne implements IServicePersonne {
 			liste.add( mapper.map(personne) );
 		}
 		return liste;
+		
 	}
 
 	// Méthodes auxiliaires
@@ -101,6 +104,47 @@ public class ServicePersonne implements IServicePersonne {
 		if (message.length() > 0) {
 			throw new ExceptionValidation(message.toString().substring(1));
 		}
+	}
+
+	@Override
+	public List<DtoPersonne> searchByNameOrSurname(String searchText,DtoPersonne personne) {
+		List<DtoPersonne> liste = new ArrayList<>();
+		for (Personne person : daoPersonne.searchByNameOrSurname(searchText, mapper.map(personne))) {
+			liste.add( mapper.map(person) );
+		}
+		return liste;
+	}
+
+	@Override
+	public int ajouterAmi(int idAmi,int idPersonne) throws ExceptionValidation{
+		Amitie amitie=new Amitie(idPersonne,idAmi,false);
+		int id = daoPersonne.insererAmitie(amitie);
+		return id;
+		
+	}
+
+	@Override
+	public List<DtoPersonne> listerInvitations(int idPersonne) {
+		List<DtoPersonne> liste = new ArrayList<>();
+		for (Personne personne : daoPersonne.listerInvitations(idPersonne)) {
+			liste.add( mapper.map(personne) );
+		}
+		return liste;
+	}
+
+	@Override
+	public List<DtoPersonne> listerAmis(int idPersonne) {
+		List<DtoPersonne> liste = new ArrayList<>();
+		for (Personne personne : daoPersonne.listerAmis(idPersonne)) {
+			liste.add( mapper.map(personne) );
+		}
+		return liste;
+	}
+
+	@Override
+	public void validateInvitation(int idAmi, int idPersonne) {
+		Amitie amitie=new Amitie(idAmi,idPersonne,true);
+		daoPersonne.AcceptFriendShip(amitie);
 	}
 
 }

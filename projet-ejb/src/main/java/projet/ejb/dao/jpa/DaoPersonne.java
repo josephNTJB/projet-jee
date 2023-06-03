@@ -9,10 +9,12 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import projet.ejb.dao.IDaoPersonne;
+import projet.ejb.data.Amitie;
 import projet.ejb.data.Personne;
 
 
@@ -35,6 +37,13 @@ public class DaoPersonne implements IDaoPersonne {
 		em.flush();
 		return personne.getId();
 	}
+	@Override
+	public int insererAmitie(Amitie amitie) {
+		em.persist(amitie);
+		em.flush();
+		return amitie.getClePrimaire().getIdPersonne();
+	}
+	
 
 	@Override
 	public void modifier(Personne personne) {
@@ -74,6 +83,40 @@ public class DaoPersonne implements IDaoPersonne {
 		var query = em.createQuery( jpql, Long.class );
 		query.setParameter( "idCategorie", idCategorie );
 		return query.getSingleResult().intValue();
+	}
+	@Override
+	@TransactionAttribute( NOT_SUPPORTED )
+	public List<Personne> searchByNameOrSurname(String searchText, Personne personneCourante) {
+		  String jpql = "SELECT p FROM Personne  WHERE (p.nom LIKE :searchText OR p.prenom LIKE :searchText) AND p <> :personneCourante";
+		  return em.createQuery(jpql, Personne.class)
+		    .setParameter("searchText", "%" + searchText + "%")
+		    .setParameter("personneCourante", personneCourante)
+		    .getResultList();
+		  
+		}
+	@Override
+	public List<Personne> listerInvitations(int idPerson) {
+		em.clear();
+		var jpql = "SELECT p FROM Personne p ORDER BY p.nom, p.prenom WHERE p.id in (SELECT a.idPersonne FROM Amitie a  WHERE a.idAmi = :idPerson AND a.isValid = false)";
+		var query = em.createQuery( jpql, Personne.class );
+		query.setParameter( "idPerson", idPerson );
+		return query.getResultList();
+	}
+	@Override
+	public List<Personne> listerAmis(int idPerson) {
+		em.clear();
+		var jpql = "SELECT p FROM Personne p ORDER BY p.nom, p.prenom WHERE p.id in ((SELECT a.idPersonne FROM Amitie a  WHERE a.idAmi = :idPerson AND a.isValid = true) UNION (SELECT a.idAmi FROM Amitie a  WHERE a.idPersonne = :idPerson AND a.isValid = true) )";
+		var query = em.createQuery( jpql, Personne.class );
+		query.setParameter( "idPerson", idPerson );
+		return query.getResultList();
+	}
+	@Override
+	public void AcceptFriendShip(Amitie amitie) {
+		em.merge( amitie );
+	}
+	@Override
+	public void DeleteFriendShip(Amitie amitie) {
+		em.remove(amitie);
 	}
 
 }

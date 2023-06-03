@@ -17,6 +17,18 @@ public interface IServicePersonne {
 	DtoPersonne 	retrouver( int idPersonne );
 	
 	List<DtoPersonne> listerTout();
+
+	List<DtoPersonne> searchByNameOrSurname(String searchText, DtoPersonne personne);
+
+	int ajouterAmi(int idAmi, int idPersonne) throws ExceptionValidation;
+
+	List<DtoPersonne> listerInvitations(int idPersonne);
+
+	List<DtoPersonne> listerAmis(int idPersonne);
+
+	void validateInvitation(int idAmi, int idPersonne);
+
+	void deleteFriend(int idAmi, int idPersonne);
 	
 
 }

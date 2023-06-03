@@ -90,6 +90,7 @@ CREATE TABLE  associer(
 CREATE TABLE  emprunt(
 	id_ouvrage    INT  NOT NULL ,
 	id_personne   INT  NOT NULL  ,
+	is_validate   boolean NOT NULL,
 	CONSTRAINT emprunt_PK PRIMARY KEY (id_ouvrage, id_personne)
 )WITHOUT OIDS;
 
@@ -99,8 +100,8 @@ CREATE TABLE  emprunt(
 ------------------------------------------------------------
 CREATE TABLE  etre_ami(
 	 id_personne            INT  NOT NULL ,
-	 id_personne_etre_ami   INT  NOT NULL  ,
-	CONSTRAINT etre_ami_PK PRIMARY KEY ( id_personne, id_personne_etre_ami)
+	 id_ami                 INT  NOT NULL  ,
+	CONSTRAINT etre_ami_PK PRIMARY KEY ( id_personne, id_ami)
 )WITHOUT OIDS;
 
 
