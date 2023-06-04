@@ -27,18 +27,18 @@
  <PROCESS-ITEM NAME="rules:#connexion.xhtml" PATH="/connexion.xhtml"
   SHAPE="320,40,50,25" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#admin#compte#liste.xhtml"
-  PATH="/pages/admin/compte/liste.xhtml" SHAPE="328,88,50,25" model-entity="JSFProcessGroup"/>
+  PATH="/pages/admin/compte/liste.xhtml" SHAPE="536,104,50,25" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#pages#info.xhtml" PATH="/pages/info.xhtml"
-  SHAPE="320,128,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+  SHAPE="392,176,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#user#ouvrage#liste.xhtml"
-  PATH="/pages/user/ouvrage/liste.xhtml" SHAPE="333,198,0,0"
+  PATH="/pages/user/ouvrage/liste.xhtml" SHAPE="624,224,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#user#emprunt#liste.xhtml"
-  PATH="/pages/user/emprunt/liste.xhtml" SHAPE="355,267,0,0"
+  PATH="/pages/user/emprunt/liste.xhtml" SHAPE="544,320,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
-  SHAPE="360,339,0,0" model-entity="JSFProcessGroup" persistent="true"/>
+  SHAPE="448,392,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#user#amis#liste.xhtml"
-  PATH="/pages/user/amis/liste.xhtml" SHAPE="368,441,0,0"
+  PATH="/pages/user/amis/liste.xhtml" SHAPE="296,472,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

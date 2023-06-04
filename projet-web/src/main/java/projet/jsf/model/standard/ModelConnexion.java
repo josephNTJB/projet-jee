@@ -58,6 +58,7 @@ public class ModelConnexion {
 	        
 	    	modelInfo.setTitre( "Bienvenue" );
 	    	modelInfo.setTexte( "Vous êtes connecté en tant que '" + courant.getPseudo() +"'.");
+	    	modelInfo.setTexte( "Vous êtes connecté en tant que '" + courant.getRoles().size() +"'.");
 		    return "info";
 
 	    } else {
