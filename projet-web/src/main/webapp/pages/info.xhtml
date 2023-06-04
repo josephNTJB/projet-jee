@@ -1,40 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition template="/template/page-standard.xhtml"
-     xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://java.sun.com/jsf/html"
-     xmlns:f="http://java.sun.com/jsf/core"
-     xmlns:ui="http://java.sun.com/jsf/facelets">>
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">>
 
 <f:metadata>
-	<f:viewAction action="#{utilJsf.messageFromRequestAttribute()}" />
-</f:metadata>
+		<f:viewAction action="#{utilJsf.messageFromRequestAttribute()}" />
+	</f:metadata>
 
-     <ui:define name="titre">#{modelInfo.titre}</ui:define>
+	<ui:define name="titre">#{modelInfo.titre}</ui:define>
 
-    <ui:define name="contenu">
-     <h:form>
-	  <h:inputText id="searchInput" value="#{modelPersonne.searchText}">
-	    <f:ajax event="keyup" listener="#{modelPersonne.search}" render="resultsTable" />
-	  </h:inputText>
-	  
-	  <h:dataTable id="resultsTable" value="#{modelPersonne.searchResults}" var="person">
-	    <!-- Affichez les détails de chaque personne dans les colonnes -->
-	    <h:column>
-	    <f:facet name="header">
-					<h:outputText value="nom" />
-				</f:facet>
+	<ui:define name="contenu">
+		<h:form>
+		
+			<h:inputText id="searchInput" value="#{modelPersonne.searchText}">
+				<f:ajax event="keyup" listener="#{modelPersonne.search}"
+					render="resultsTable" />
+			</h:inputText>
+
+			<h:dataTable id="resultsTable" value="#{modelPersonne.searchResults}"
+				var="person">
+				<!-- Affichez les détails de chaque personne dans les colonnes -->
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="nom" />
+					</f:facet>
 				#{person.nom}</h:column>
-	    <h:column>
-	    <f:facet name="header">
-					<h:outputText value="Prenom" />
-				</f:facet>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Prenom" />
+					</f:facet>
 				#{person.prenom}</h:column>
-	  </h:dataTable>
-	</h:form>
-	<br />
-	<div>#{modelInfo.texte}</div>
-	<br />
-	<br />
+			</h:dataTable>
+		</h:form>
+		<br />
+		<div>#{modelInfo.texte}</div>
+		<br />
+		<br />
 
 	</ui:define>
 

@@ -18,4 +18,6 @@ public interface IServiceCompte {
 
 	List<DtoCompte>	listerTout() ;
 
+	List<String> listerRoles(int idCompte);
+
 }

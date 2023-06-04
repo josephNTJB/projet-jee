@@ -18,6 +18,7 @@ import projet.commun.service.IServicePersonne;
 import projet.jsf.data.Personne;
 import projet.jsf.data.Ouvrage;
 import projet.jsf.data.mapper.IMapper;
+import projet.jsf.util.CompteActif;
 import projet.jsf.util.UtilJsf;
 
 
@@ -44,6 +45,10 @@ public class ModelPersonne implements Serializable {
 
 	@Inject
 	private IMapper				mapper;
+	@Inject
+	private ModelCompte modelCompte;
+	@Inject
+	CompteActif compteActif;
 
 	
 	// Getters 
@@ -70,7 +75,7 @@ public class ModelPersonne implements Serializable {
 	
 	public String actualiserCourant() {
 		if ( courant != null ) {
-			DtoPersonne dto = servicePersonne.retrouver( courant.getId() ); 
+			DtoPersonne dto = servicePersonne.retrouver( compteActif.getId() ); 
 			if ( dto == null ) {
 				UtilJsf.messageError( "La personne demandée n'existe pas" );
 				return "liste";
@@ -128,6 +133,7 @@ public class ModelPersonne implements Serializable {
 	}
 	//implementation de la recherche
 	public void search() {
+		    actualiserCourant();
 			liste = new ArrayList<>();
 			for ( DtoPersonne dto : servicePersonne.searchByNameOrSurname(searchText,mapper.map(courant))) {
 				liste.add( mapper.map( dto ) );
@@ -154,25 +160,33 @@ public class ModelPersonne implements Serializable {
 		return liste;
 	}
 	//recevoir la liste d'amis
-		public List<Personne> getFriends() throws ExceptionValidation {
+		public void getFriends() throws ExceptionValidation {
 			if (listeAmis == null ) {
 				listeAmis = new ArrayList<>();
 				for ( DtoPersonne dto : servicePersonne.listerAmis(courant.getId()) ) {
 					listeAmis.add( mapper.map( dto ) );
 				}
 			}
-			return listeAmis;
 		}
     //supprimer une amitié -------mechant mechant :) -------------
 		public void brokeUp() throws ExceptionValidation {
 			try {
 				servicePersonne.deleteFriend(idAmi,courant.getId());
-				listeAmis.remove(personne);
-				UtilJsf.messageInfo( "Suppression effectuée avec succès." );
+				getFriends();
+				UtilJsf.messageInfo( ":( un ami en moins " );
 			} catch (ExceptionValidation e) {
 				UtilJsf.messageError( e ); 
 			}
-			return null;
+	    }
+		 //supprimer une amitié -------noxious :) -------------
+		public void forgive() throws ExceptionValidation {
+			try {
+				servicePersonne.cancelDemand(idAmi,courant.getId());
+				getFriends();
+				UtilJsf.messageInfo( "se sera la bonne une prochaine fois" );
+			} catch (ExceptionValidation e) {
+				UtilJsf.messageError( e ); 
+			}
 	    }
 	public String getSearchText() {
 		return searchText;

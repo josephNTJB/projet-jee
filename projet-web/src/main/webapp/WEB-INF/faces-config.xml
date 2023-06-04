@@ -16,6 +16,22 @@
    <from-outcome>info</from-outcome>
    <to-view-id>/pages/info.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>ouvrage</from-outcome>
+   <to-view-id>/pages/user/ouvrage/liste.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>emprunt</from-outcome>
+   <to-view-id>/pages/user/emprunt/liste.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>home</from-outcome>
+   <to-view-id>/home.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>amis</from-outcome>
+   <to-view-id>/pages/user/amis/liste.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
  <application/>
 </faces-config>

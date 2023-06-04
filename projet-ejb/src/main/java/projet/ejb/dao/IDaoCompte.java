@@ -21,4 +21,6 @@ public interface IDaoCompte {
 
 	boolean 	verifierUnicitePseudo( String pseudo, int idCompte );
 
+	List<String> listerRoles(int idCompte);
+
 }

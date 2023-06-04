@@ -147,4 +147,21 @@ public class ServicePersonne implements IServicePersonne {
 		daoPersonne.AcceptFriendShip(amitie);
 	}
 
+	@Override
+	public void deleteFriend(int idAmi, int idPersonne) {
+		Amitie amitie1=new Amitie(idAmi,idPersonne,true);
+		Amitie amitie2=new Amitie(idPersonne,idAmi,true);
+		daoPersonne.DeleteFriendShip(amitie1);
+		daoPersonne.DeleteFriendShip(amitie2);
+		
+	}
+	@Override
+	public void cancelDemand(int idAmi, int idPersonne) {
+		Amitie amitie1=new Amitie(idAmi,idPersonne,false);
+		Amitie amitie2=new Amitie(idPersonne,idAmi,false);
+		daoPersonne.DeleteFriendShip(amitie1);
+		daoPersonne.DeleteFriendShip(amitie2);
+		
+	}
+
 }
