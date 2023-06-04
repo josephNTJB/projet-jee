@@ -80,17 +80,10 @@ INSERT INTO emprunt (id_ouvrage, id_personne) VALUES
   (9, 2);
 
 INSERT INTO etre_ami (id_personne, id_ami,is_validate) VALUES
-<<<<<<< HEAD
   (1, 3,true),
   (3, 5,true),
   (4, 2,false),
   (2, 3,false);
-=======
-  (1, 3, true),
-  (3, 5, true),
-  (4, 2, false),
-  (2, 3, false);
->>>>>>> branch 'master' of https://github.com/josephNTJB/projet-jee.git
   
 INSERT INTO role (idcompte, role) VALUES 
 ( 1, 'ADMINISTRATEUR' ),

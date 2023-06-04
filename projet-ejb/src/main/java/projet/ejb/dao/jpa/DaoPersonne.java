@@ -9,7 +9,6 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -41,7 +40,7 @@ public class DaoPersonne implements IDaoPersonne {
 	public int insererAmitie(Amitie amitie) {
 		em.persist(amitie);
 		em.flush();
-		return amitie.getClePrimaire().getIdPersonne();
+		return amitie.getIdPersonne();
 	}
 	
 
@@ -59,7 +58,6 @@ public class DaoPersonne implements IDaoPersonne {
 	@TransactionAttribute( NOT_SUPPORTED )
 	public Personne retrouver(int idPersonne) {
 		var graph = em.createEntityGraph( Personne.class );
-		graph.addAttributeNodes( "categorie" );
 		graph.addAttributeNodes( "ouvrages" );
 		var props = new HashMap<String, Object>();
 		props.put( "javax.persistence.loadgraph", graph );
@@ -87,17 +85,17 @@ public class DaoPersonne implements IDaoPersonne {
 	@Override
 	@TransactionAttribute( NOT_SUPPORTED )
 	public List<Personne> searchByNameOrSurname(String searchText, Personne personneCourante) {
-		  String jpql = "SELECT p FROM Personne p WHERE (p.nom LIKE :searchText OR p.prenom LIKE :searchText)";// AND p <> :personneCourante";
+		  String jpql = "SELECT p FROM Personne p WHERE (p.nom LIKE :searchText OR p.prenom LIKE :searchText) AND p <> :personneCourante";
 		  return em.createQuery(jpql, Personne.class)
 		    .setParameter("searchText", "%" + searchText + "%")
-		    //.setParameter("personneCourante", personneCourante)
+		    .setParameter("personneCourante", personneCourante)
 		    .getResultList();
 		  
 		}
 	@Override
 	public List<Personne> listerInvitations(int idPerson) {
 		em.clear();
-		var jpql = "SELECT p FROM Personne p ORDER BY p.nom, p.prenom WHERE p.id in (SELECT a.idPersonne FROM Amitie a  WHERE a.idAmi = :idPerson AND a.isValid = false)";
+		var jpql = "SELECT p FROM Personne p WHERE p.id IN (SELECT a.idpersonne FROM Amitie a  WHERE a.idami = :idPerson AND a.isValid = false) ORDER BY p.nom, p.prenom";
 		var query = em.createQuery( jpql, Personne.class );
 		query.setParameter( "idPerson", idPerson );
 		return query.getResultList();
@@ -105,7 +103,7 @@ public class DaoPersonne implements IDaoPersonne {
 	@Override
 	public List<Personne> listerAmis(int idPerson) {
 		em.clear();
-		var jpql = "SELECT p FROM Personne p ORDER BY p.nom, p.prenom WHERE p.id in ((SELECT a.idPersonne FROM Amitie a  WHERE a.idAmi = :idPerson AND a.isValid = true) UNION (SELECT a.idAmi FROM Amitie a  WHERE a.idPersonne = :idPerson AND a.isValid = true) )";
+		var jpql = "SELECT p FROM Personne p WHERE p.id IN ( SELECT CASE WHEN a.idpersonne = :idPerson THEN a.idami ELSE a.idpersonne END FROM Amitie a WHERE (a.idpersonne = :idPerson OR a.idami = :idPerson) AND a.isValid = true) ORDER BY p.nom, p.prenom ";
 		var query = em.createQuery( jpql, Personne.class );
 		query.setParameter( "idPerson", idPerson );
 		return query.getResultList();
@@ -117,6 +115,14 @@ public class DaoPersonne implements IDaoPersonne {
 	@Override
 	public void DeleteFriendShip(Amitie amitie) {
 		em.remove(amitie);
+	}
+	@Override
+	public List<Personne> listerDemandes(int id) {
+		em.clear();
+		var jpql = "SELECT p FROM Personne p WHERE p.id IN (SELECT a.idami FROM Amitie a  WHERE a.idpersonne = :idPerson AND a.isValid = false) ORDER BY p.nom, p.prenom ";
+		var query = em.createQuery( jpql, Personne.class );
+		query.setParameter( "idPerson", id );
+		return query.getResultList();
 	}
 
 }

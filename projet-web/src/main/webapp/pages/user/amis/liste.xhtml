@@ -5,14 +5,21 @@
      xmlns:ui="http://java.sun.com/jsf/facelets"
      template="/template/page-standard.xhtml" >
 
-     <ui:define name="titre">Liste d'amis</ui:define>
+     <ui:define name="titre"><h:form><h:commandButton action="#{modelPersonne.getFriends()}" 
+						value="refresh" 
+						image="#{ resource['images:friends.gif'] }" 
+						title="refressh"
+						styleClass="image-action">
+						<f:ajax render="@form" execute="@form" />				
+					</h:commandButton>
+		</h:form>Liste d'amis</ui:define>
 
     <ui:define name="contenu">
 
 	<h:form>
 
 		<h:dataTable styleClass="liste"
-			value="#{modelPersonne.liste}" var="item" 
+			value="#{modelPersonne.listeAmis}" var="item" 
 			rowClasses="impair, pair" columnClasses="left,left,center"
 		>
 		    <h:column>
@@ -48,7 +55,7 @@
 		</h:dataTable>
 		
 		<br />
-		<h:button value="Ajouter" outcome="formulaire" />
+		<h:button value="Ajouter" outcome="relation" />
 
 	</h:form>
 

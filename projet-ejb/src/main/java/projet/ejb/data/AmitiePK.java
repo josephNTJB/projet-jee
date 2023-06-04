@@ -2,51 +2,46 @@ package projet.ejb.data;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @SuppressWarnings("serial")
-@Embeddable
 public class AmitiePK implements java.io.Serializable{
     
 	
     // Champs
-    private int      	idPersonne;
-    private int     	idAmi;
+    private int      	idpersonne;
+    private int     	idami;
 	// Constructeurs
 
 	public AmitiePK() {
-		super();
+
 	}
     
     public AmitiePK(int idP, int idA) {
-		super();
-		this.idPersonne = idP;
+		this.idpersonne = idP;
+		this.idami = idA;
 	}
 
     // Getters & setters
     
 	public int getIdPersonne() {
-		return idPersonne;
+		return idpersonne;
 	}
 
 	public void setIdPersonne(int idPersonne) {
-		this.idPersonne = idPersonne;
+		this.idpersonne = idPersonne;
 	}
 
 	public int getIdAmi() {
-		return idAmi;
+		return idami;
 	}
 
 	public void setIdAmi(int idAmi) {
-		this.idAmi = idAmi;
+		this.idami = idAmi;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idAmi, idPersonne);
+		return Objects.hash(idami, idpersonne);
 	}
 
 	@Override
@@ -58,7 +53,7 @@ public class AmitiePK implements java.io.Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		AmitiePK other = (AmitiePK) obj;
-		return idAmi == other.idAmi && idPersonne == other.idPersonne;
+		return idami == other.idami && idpersonne == other.idpersonne;
 	}
     
     

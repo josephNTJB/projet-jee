@@ -118,7 +118,7 @@ public class Personne {
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
-			return false;
+			return false; 
 		Personne other = (Personne) obj;
 		if (id != other.id)
 			return false;

@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     template="/template/page-standard.xhtml" >
+
+     <ui:define name="titre">Relation center</ui:define>
+
+    <ui:define name="contenu">
+    
+    		<h:form>
+		
+			<h:inputText id="searchInput" value="#{modelPersonne.searchText}">
+				<f:ajax event="keyup" listener="#{modelPersonne.searchForFriendShip}"
+					render="resultsTable" />
+			</h:inputText>
+            <br />
+			<h:dataTable id="resultsTable" value="#{modelPersonne.liste}"
+				var="person" styleClass="liste" rowClasses="impair, pair" columnClasses="left,left,center">
+				<!-- Affichez les détails de chaque personne dans les colonnes -->
+				<h:column>
+		        <div>
+				<h:graphicImage
+					value="#{ resource['images:avatar'.concat(person.id%6).concat('.png')] }"
+					height="40" width="40" style="float:center;" /></div>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="nom" />
+					</f:facet>
+				#{person.nom}</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Prenom" />
+					</f:facet>
+				#{person.prenom}
+				</h:column>
+				<h:column>
+					<h:commandButton action="#{modelPersonne.invite(person.id)}" 
+						value="inviter" 
+						onclick="return confirm('Confirmez-vous la demande ?')" 
+						image="#{ resource['images:invite.gif'] }" 
+						title="inviter"
+						styleClass="image-action">
+						<f:ajax render="@form" execute="@form" />				
+					</h:commandButton>
+			</h:column>
+			</h:dataTable>
+		</h:form>
+		<br />
+		<h1 style="text-align:center;">mes demandes</h1>
+		
+	<h:form>
+
+		<h:dataTable styleClass="liste"
+			value="#{modelPersonne.demands}" var="item" 
+			rowClasses="impair, pair" columnClasses="left,left,center"
+		>
+		    <h:column>
+		    <div>
+				<h:graphicImage
+				value="#{ resource['images:avatar'.concat(item.id%6).concat('.png')] }"
+				height="40" width="40" style="float:center;" /></div>
+			</h:column>
+			<h:column>
+				#{item.nom}
+			</h:column>			
+			<h:column>
+				#{item.prenom}
+			</h:column>			
+			<h:column>
+
+				<h:commandButton action="#{modelPersonne.forget(item.id)}" 
+					value="annuler" 
+					onclick="return confirm('vous allez vous separer !')" 
+					image="#{ resource['images:croix-cercle.png'] }" 
+					title="annuler"
+					styleClass="image-action"
+				>
+					<f:ajax render="@form" execute="@form" />				
+				</h:commandButton>
+			</h:column>
+			
+		</h:dataTable>
+		
+		<br />
+
+	</h:form>
+	<h1 style="text-align:center;">invitations reçues</h1>
+	<h:form>
+
+		<h:dataTable styleClass="liste"
+			value="#{modelPersonne.invitations}" var="item" 
+			rowClasses="impair, pair" columnClasses="left,left,center"
+		>
+		    <h:column>
+		    <div>
+				<h:graphicImage
+				value="#{ resource['images:avatar'.concat(item.id%6).concat('.png')] }"
+				height="40" width="40" style="float:center;" /></div>
+			</h:column>
+			<h:column>
+				#{item.nom}
+			</h:column>			
+			<h:column>
+				#{item.prenom}
+			</h:column>			
+			<h:column>
+
+				<h:commandButton action="#{modelPersonne.validInvitation(item.id)}" 
+					value="valider" 
+					image="#{ resource['images:accept.gif'] }" 
+					title="valider"
+					styleClass="image-action"
+				>
+					<f:ajax render="@form" execute="@form" />				
+				</h:commandButton>
+					<h:commandButton action="#{modelPersonne.refuseInvitation(item.id)}" 
+					value="refuser" 
+					image="#{ resource['images:refuse.gif'] }" 
+					title="refuser"
+					styleClass="image-action"
+				>
+					<f:ajax render="@form" execute="@form" />				
+				</h:commandButton>
+			</h:column>
+			
+		</h:dataTable>
+		
+		<br />
+
+	</h:form>
+
+	</ui:define>
+
+</ui:composition>
