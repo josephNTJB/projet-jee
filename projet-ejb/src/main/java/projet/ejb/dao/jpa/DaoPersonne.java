@@ -109,6 +109,15 @@ public class DaoPersonne implements IDaoPersonne {
 		return query.getResultList();
 	}
 	@Override
+	public Amitie findAmitie(int idPerson,int idAmi) {
+		em.clear();
+		var jpql = "SELECT a FROM Amitie a WHERE ((a.idpersonne = :idPerson AND a.idami = :idAmi) OR (a.idpersonne = :idAmi AND a.idami = :idPerson))  AND a.isValid = true";
+		var query = em.createQuery( jpql,Amitie.class );
+		query.setParameter( "idPerson", idPerson );
+		query.setParameter( "idAmi", idAmi );
+		return query.getSingleResult();
+	}
+	@Override
 	public void AcceptFriendShip(Amitie amitie) {
 		em.merge( amitie );
 	}
@@ -124,5 +133,15 @@ public class DaoPersonne implements IDaoPersonne {
 		query.setParameter( "idPerson", id );
 		return query.getResultList();
 	}
+	@Override
+	public Amitie findDemand(int idPersonne, int idAmi) {
+		em.clear();
+		var jpql = "SELECT a FROM Amitie a WHERE a.idpersonne = :idPerson AND a.idami = :idAmi AND a.isValid = false";
+		var query = em.createQuery( jpql,Amitie.class );
+		query.setParameter( "idPerson", idPersonne );
+		query.setParameter( "idAmi", idAmi );
+		return query.getSingleResult();
+	}
+	
 
 }

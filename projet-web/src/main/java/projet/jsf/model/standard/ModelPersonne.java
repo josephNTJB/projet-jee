@@ -151,13 +151,18 @@ public class ModelPersonne implements Serializable {
 			liste.removeAll(suppr);
 		}
 	//inviter un ami
-	public void invite(int idAmi) throws ExceptionValidation {
+	public String invite(int idAmi) throws ExceptionValidation {
 		servicePersonne.ajouterAmi(idAmi,courant.getId());
+		return "relation";
     }
 	//valider une invitation
 		public void validInvitation(int idAmi) throws ExceptionValidation {
 			servicePersonne.validateInvitation(idAmi,courant.getId());
 	    }
+		//refuser une invitation
+		public void refuseInvitation(int idAmi) throws ExceptionValidation {
+			servicePersonne.refuseInvitation(idAmi,courant.getId());
+		}		
 	//recevoir la liste d'invitations
 	public List<Personne> getInvitations() throws ExceptionValidation {
 		actualiserCourant();
@@ -187,14 +192,16 @@ public class ModelPersonne implements Serializable {
 			}
 		}
     //supprimer une amitié -------mechant mechant :) -------------
-		public void brokeUp(int idAmi) throws ExceptionValidation {
+		public String brokeUp(int idAmi) throws ExceptionValidation {
 			try {
 				servicePersonne.deleteFriend(idAmi,courant.getId());
 				getFriends();
 				UtilJsf.messageInfo( ":( un ami en moins " );
+				
 			} catch (ExceptionValidation e) {
 				UtilJsf.messageError( e ); 
 			}
+			return "amis";
 	    }
 		 //supprimer une amitié -------noxious :) -------------
 		public void forget(int idAmi) throws ExceptionValidation {
