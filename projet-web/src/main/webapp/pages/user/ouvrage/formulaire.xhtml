@@ -22,7 +22,7 @@
 					<h:outputLabel for="id">Id :</h:outputLabel>				
 				</td>
 				<td>
-					<h:inputText id="id" size="5" readonly="true"
+					<h:outputText id="id" size="5" readonly="true"
 						value="#{modelOuvrage.courant.id}" />
 					<br /><h:message for="id" errorClass="error"/>
 				</td>
@@ -48,24 +48,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<h:outputLabel for="personne">Personne :</h:outputLabel>				
-				</td>
-				<td>
-					<h:inputText id="personne" size="50" 
-						value="#{modelOuvrage.courant.personne.prenom}" />
-					<br /><h:message for="personne" errorClass="error"/>
-				</td>
-			</tr>
-			<tr>
 			
 			</tr>
 		</table>
 
 		<br /> 
-		<h:commandButton value="Emprunter" 
+		<h:commandButton value="Valider" 
 			action="#{modelOuvrage.validerMiseAJour()}" />
-		<h:button value="Retour" outcome="ouvrages" />
+		<h:button value="Retour" outcome="ouvrage" />
 	</h:form>
 
 	</ui:define>

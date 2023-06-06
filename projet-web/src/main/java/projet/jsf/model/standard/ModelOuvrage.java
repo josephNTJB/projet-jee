@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,13 +21,15 @@ import projet.jsf.util.UtilJsf;
 
 @SuppressWarnings("serial")
 @Named
-@RequestScoped
+@ViewScoped
 public class ModelOuvrage implements Serializable {
 
 	
 	// Champs
 	
 	private List<Ouvrage>	liste;
+	
+	private List<Ouvrage> listePourPersonne ;
 	
 	private Ouvrage			courant;
 	
@@ -53,13 +56,13 @@ public class ModelOuvrage implements Serializable {
 	}
 	
 	public List<Ouvrage> getListePourPersonne() {
-		List<Ouvrage> liste = new ArrayList<Ouvrage>();
-	
+		if ( listePourPersonne == null ) {
+			listePourPersonne= new ArrayList<>();
 			for ( DtoOuvrage dto : serviceOuvrage.listerPourPersonne(compteActif.getId()) ) {
-				liste.add( mapper.map( dto ) );
+				listePourPersonne.add( mapper.map( dto ) );
 			}
-		
-		return liste;
+		}
+		return listePourPersonne;
 	}
 	
 		public Ouvrage getCourant() {
@@ -106,7 +109,7 @@ public class ModelOuvrage implements Serializable {
 	public String supprimer( Ouvrage item ) {
 		try {
 			serviceOuvrage.supprimerPourPersonne( item.getId() );
-			liste.remove(item);
+			listePourPersonne.remove(item);
 			UtilJsf.messageInfo( "Suppression effectuée avec succès." );
 		} catch (ExceptionValidation e) {
 			UtilJsf.messageError( e ); 

@@ -12,12 +12,12 @@ public interface IDaoOuvrage {
 
 	void modifierPourPersonne(Ouvrage ouvrage);
 
-	void supprimerPourPersonne(int idOuvrage);
-
 	Ouvrage retrouver(int idOuvrage);
 
 	List<Ouvrage> listerTout();
 
 	List<Ouvrage> listerPourPersonne(int idPersonne);
+
+	void supprimerPourPersonne(int idOuvrage);
 
 }

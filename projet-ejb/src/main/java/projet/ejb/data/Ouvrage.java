@@ -2,13 +2,21 @@ package projet.ejb.data;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import projet.commun.dto.DtoCategorie;
 
 @Entity
 @Table( name = "ouvrage" )
@@ -31,6 +39,12 @@ public class Ouvrage {
 
 	@Column( name = "nom" )
 	private String			nom;
+
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="associer",
+				joinColumns= @JoinColumn(name="id_ouvrage"),
+				inverseJoinColumns = @JoinColumn( name="id_categorie"))
+	private List<Categorie> categories = new ArrayList<Categorie>();
 	
 	
 	// Constructeurs
@@ -80,6 +94,13 @@ public class Ouvrage {
 		this.nom = nom;
 	}
 	
+	public List<Categorie> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Categorie> categories) {
+		this.categories = categories;
+	}
 	
 	// hashcode() et equals()
 	
