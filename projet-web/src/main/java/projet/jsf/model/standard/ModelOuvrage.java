@@ -14,9 +14,12 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+<<<<<<< HEAD
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+=======
+>>>>>>> branch 'master' of https://github.com/josephNTJB/projet-jee.git
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +30,7 @@ import projet.commun.exception.ExceptionValidation;
 import projet.commun.service.IServiceOuvrage;
 import projet.jsf.data.Ouvrage;
 import projet.jsf.data.mapper.IMapper;
+import projet.jsf.util.CompteActif;
 import projet.jsf.util.UtilJsf;
 
 
@@ -47,6 +51,9 @@ public class ModelOuvrage implements Serializable {
 	
 	@Inject
 	private IMapper			mapper;
+	
+	@Inject
+	CompteActif compteActif;
 
 	
 	// Getters 
@@ -58,6 +65,16 @@ public class ModelOuvrage implements Serializable {
 				liste.add( mapper.map( dto ) );
 			}
 		}
+		return liste;
+	}
+	
+	public List<Ouvrage> getListePourPersonne() {
+		List<Ouvrage> liste = new ArrayList<Ouvrage>();
+	
+			for ( DtoOuvrage dto : serviceOuvrage.listerPourPersonne(compteActif.getId()) ) {
+				liste.add( mapper.map( dto ) );
+			}
+		
 		return liste;
 	}
 	
@@ -75,7 +92,7 @@ public class ModelOuvrage implements Serializable {
 		if ( courant != null ) {
 			DtoOuvrage dto = serviceOuvrage.retrouver( courant.getId() ); 
 			if ( dto == null ) {
-				UtilJsf.messageError( "Le ouvrage demandé n'existe pas" );
+				UtilJsf.messageError( "L'ouvrage demandé n'existe pas" );
 				return "test/liste";
 			} else {
 				courant = mapper.map( dto );

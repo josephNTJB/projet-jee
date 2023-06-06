@@ -16,9 +16,11 @@ public interface IServiceOuvrage {
 	
 	List<DtoOuvrage> listerTout();
 
-	List<DtoOuvrage> listerPourPersonne( DtoOuvrage dtoOuvrage);
+	List<DtoOuvrage> listerPourPersonne( int idPersonne);
 	
 	DtoOuvrage  retrouver(int idOuvrage);
+
+	void supprimer() throws ExceptionValidation;
 
 
 	

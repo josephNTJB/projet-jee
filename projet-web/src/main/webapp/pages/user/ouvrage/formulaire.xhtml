@@ -39,11 +39,11 @@
 			</tr>
 			<tr>
 				<td>
-					<h:outputLabel for="categorie">Categorie :</h:outputLabel>				
+					<h:outputLabel for="categorie">Categories :</h:outputLabel>				
 				</td>
 				<td>
 					<h:inputText id="categorie" size="25" 
-						value="#{modelOuvrage.courant.categorie}" />
+						value="#{modelOuvrage.courant.categories}" />
 					<br /><h:message for="categorie" errorClass="error"/>
 				</td>
 			</tr>
@@ -53,7 +53,7 @@
 				</td>
 				<td>
 					<h:inputText id="personne" size="50" 
-						value="#{modelOuvrage.courant.personne}" />
+						value="#{modelOuvrage.courant.personne.prenom}" />
 					<br /><h:message for="personne" errorClass="error"/>
 				</td>
 			</tr>
