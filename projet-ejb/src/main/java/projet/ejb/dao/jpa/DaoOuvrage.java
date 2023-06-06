@@ -61,8 +61,9 @@ public class DaoOuvrage implements IDaoOuvrage {
 	@TransactionAttribute( NOT_SUPPORTED )
 	public List<Ouvrage> listerPourPersonne(int idPersonne) {
 		em.clear();
-		var jpql = "SELECT c FROM Ouvrage c ORDER BY c.libelle WHERE id_Personne =:idPersonne";
+		var jpql = "SELECT o FROM Ouvrage o  WHERE o.personne.id =:idPersonne ORDER BY o.nom";
 		var query = em.createQuery( jpql, Ouvrage.class );
+		query.setParameter("idPersonne", idPersonne);
 		return query.getResultList();
 	}
 	
@@ -70,7 +71,7 @@ public class DaoOuvrage implements IDaoOuvrage {
 	@TransactionAttribute( NOT_SUPPORTED )
 	public List<Ouvrage> listerTout() {
 		em.clear();
-		var jpql = "SELECT c FROM Ouvrage c ORDER BY c.libelle";
+		var jpql = "SELECT o FROM Ouvrage o ORDER BY o.nom";
 		var query = em.createQuery( jpql, Ouvrage.class );
 		return query.getResultList();
 	}

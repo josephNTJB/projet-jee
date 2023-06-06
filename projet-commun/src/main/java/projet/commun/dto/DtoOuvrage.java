@@ -1,6 +1,7 @@
 package projet.commun.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @SuppressWarnings("serial")
@@ -11,20 +12,21 @@ public class DtoOuvrage implements Serializable {
 
 	private int				id;
 
-	private String			libelle;
+	private String			nom;
 
-	private String			numero;
+	private String			auteur;
 	
+	private List<DtoCategorie> categories;	
 	
 	// Constructeurs
 	
 	public DtoOuvrage() {
 	}
 	
-	public DtoOuvrage(int id, String libelle, String numero) {
+	public DtoOuvrage(int id, String nom, String auteur) {
 		this.id = id;
-		this.libelle = libelle;
-		this.numero = numero;
+		this.nom = nom;
+		this.auteur = auteur;
 	}
 
 
@@ -38,19 +40,27 @@ public class DtoOuvrage implements Serializable {
 		this.id = id;
 	}
     
-    public String getLibelle() {
-		return libelle;
+    public String getNom() {
+		return nom;
 	}
 
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
-	public String getNumero() {
-		return numero;
+	public String getAuteur() {
+		return auteur;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
+	}
+
+	public List<DtoCategorie> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<DtoCategorie> categories) {
+		this.categories = categories;
 	}
 }

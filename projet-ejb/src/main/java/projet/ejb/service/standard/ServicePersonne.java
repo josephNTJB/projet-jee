@@ -88,17 +88,17 @@ public class ServicePersonne implements IServicePersonne {
 		}
 
 		for (DtoOuvrage ouvrage : dtoPersonne.getOuvrages()) {
-			if (ouvrage.getLibelle() == null || ouvrage.getLibelle().isEmpty()) {
+			/*if (ouvrage.getNom() == null || ouvrage.getNom().isEmpty()) {
 				message.append("\nLlibellé absent pour le téléphone : " + ouvrage.getNumero());
-			} else if (ouvrage.getLibelle().length() > 25) {
+			} else if (ouvrage.getNom().length() > 25) {
 				message.append("\nLe libellé du téléphone est trop long : " + ouvrage.getLibelle());
 			}
 
-			if (ouvrage.getNumero() == null || ouvrage.getNumero().isEmpty()) {
+			if (ouvrage.getNom() == null || ouvrage.getNumero().isEmpty()) {
 				message.append("\nNuméro absent pour le téléphone : " + ouvrage.getLibelle());
 			} else if (ouvrage.getNumero().length() > 25) {
 				message.append("\nLe numéro du téléphone est trop long : " + ouvrage.getNumero());
-			}
+			}*/
 		}
 
 		if (message.length() > 0) {
