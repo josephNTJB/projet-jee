@@ -164,4 +164,13 @@ public class ServicePersonne implements IServicePersonne {
 		
 	}
 
+	@Override
+	public List<DtoPersonne> listerDemandes(int id) {
+		List<DtoPersonne> liste = new ArrayList<>();
+		for (Personne personne : daoPersonne.listerDemandes(id)) {
+			liste.add( mapper.map(personne) );
+		}
+		return liste;
+	}
+
 }

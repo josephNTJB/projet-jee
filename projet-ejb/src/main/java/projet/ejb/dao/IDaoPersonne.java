@@ -32,4 +32,6 @@ public interface IDaoPersonne {
 
 	void DeleteFriendShip(Amitie amitie);
 
+	List<Personne> listerDemandes(int id);
+
 }

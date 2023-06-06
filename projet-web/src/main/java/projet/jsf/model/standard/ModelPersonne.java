@@ -34,12 +34,9 @@ public class ModelPersonne implements Serializable {
 	private List<Personne>		listeAmis;
 	
 	private Personne			courant;
-	private int			idAmi;
 	
 	private String searchText;
-	
-	private List<Personne> searchResults;
-	
+
 	@EJB
 	private IServicePersonne	servicePersonne;
 
@@ -54,12 +51,6 @@ public class ModelPersonne implements Serializable {
 	// Getters 
 	
 	public List<Personne> getListe() {
-		if ( liste == null ) {
-			liste = new ArrayList<>();
-			for ( DtoPersonne dto : servicePersonne.listerTout() ) {
-				liste.add( mapper.map( dto ) );
-			}
-		}
 		return liste;
 	}
 
@@ -74,7 +65,7 @@ public class ModelPersonne implements Serializable {
 	// Initialisaitons
 	
 	public String actualiserCourant() {
-		if ( courant != null ) {
+		if ( courant == null ) {
 			DtoPersonne dto = servicePersonne.retrouver( compteActif.getId() ); 
 			if ( dto == null ) {
 				UtilJsf.messageError( "La personne demandée n'existe pas" );
@@ -138,38 +129,65 @@ public class ModelPersonne implements Serializable {
 			for ( DtoPersonne dto : servicePersonne.searchByNameOrSurname(searchText,mapper.map(courant))) {
 				liste.add( mapper.map( dto ) );
 			}
-		searchResults= liste;
 
 	}
+	//mettre à jour des personnes à inviter
+		public void searchForFriendShip() throws ExceptionValidation {
+			actualiserCourant();
+			search();
+			getFriends();
+			List<Personne> suppr=new ArrayList<Personne>();
+			List<Personne> demands=getDemands();
+			for(Personne p: liste) {
+				if(listeAmis.contains(p)) {
+					suppr.add(p);
+				}
+			}
+			for(Personne p: liste) {
+				if(demands.contains(p)) {
+					suppr.add(p);
+				}
+			}
+			liste.removeAll(suppr);
+		}
 	//inviter un ami
-	public void invite() throws ExceptionValidation {
+	public void invite(int idAmi) throws ExceptionValidation {
 		servicePersonne.ajouterAmi(idAmi,courant.getId());
     }
 	//valider une invitation
-		public void validInvitation() throws ExceptionValidation {
+		public void validInvitation(int idAmi) throws ExceptionValidation {
 			servicePersonne.validateInvitation(idAmi,courant.getId());
 	    }
 	//recevoir la liste d'invitations
 	public List<Personne> getInvitations() throws ExceptionValidation {
-		if ( liste == null ) {
-			liste = new ArrayList<>();
+		actualiserCourant();
+		List<Personne> liste = new ArrayList<Personne>();
+
 			for ( DtoPersonne dto : servicePersonne.listerInvitations(courant.getId()) ) {
 				liste.add( mapper.map( dto ) );
 			}
-		}
+		return liste;
+	}
+	public List<Personne> getDemands() throws ExceptionValidation {
+		actualiserCourant();
+		List<Personne> liste = new ArrayList<Personne>();
+			for ( DtoPersonne dto : servicePersonne.listerDemandes(courant.getId()) ) {
+				liste.add( mapper.map( dto ) );
+			}
 		return liste;
 	}
 	//recevoir la liste d'amis
 		public void getFriends() throws ExceptionValidation {
 			if (listeAmis == null ) {
 				listeAmis = new ArrayList<>();
-				for ( DtoPersonne dto : servicePersonne.listerAmis(courant.getId()) ) {
-					listeAmis.add( mapper.map( dto ) );
-				}
+			}
+			for ( DtoPersonne dto : servicePersonne.listerAmis(courant.getId()) ) {
+				if(!listeAmis.contains(mapper.map( dto ))) {
+				listeAmis.add( mapper.map( dto ) );}
 			}
 		}
     //supprimer une amitié -------mechant mechant :) -------------
-		public void brokeUp() throws ExceptionValidation {
+		public void brokeUp(int idAmi) throws ExceptionValidation {
 			try {
 				servicePersonne.deleteFriend(idAmi,courant.getId());
 				getFriends();
@@ -179,7 +197,7 @@ public class ModelPersonne implements Serializable {
 			}
 	    }
 		 //supprimer une amitié -------noxious :) -------------
-		public void forgive() throws ExceptionValidation {
+		public void forget(int idAmi) throws ExceptionValidation {
 			try {
 				servicePersonne.cancelDemand(idAmi,courant.getId());
 				getFriends();
@@ -196,23 +214,13 @@ public class ModelPersonne implements Serializable {
 		this.searchText = searchText;
 	}
 
-	public List<Personne> getSearchResults() {
-		return searchResults;
-	}
-
-	public void setSearchResults(List<Personne> searchResults) {
-		this.searchResults = searchResults;
-	}
-
-	public int getAmi() {
-		return idAmi;
-	}
-
-	public void setAmi(int idAmi) {
-		this.idAmi = idAmi;
-	}
-
 	public List<Personne> getListeAmis() {
+		try {
+			actualiserCourant();
+			getFriends();
+		} catch (ExceptionValidation e) {
+			e.printStackTrace();
+		}
 		return listeAmis;
 	}
 
