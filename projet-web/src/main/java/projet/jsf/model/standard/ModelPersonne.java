@@ -248,59 +248,5 @@ public class ModelPersonne implements Serializable {
 		this.listeAmis = listeAmis;
 	}
 	//concerne les ouvrages*********************************************
-    private Part file;
-
-    // Getter et Setter pour la propriété "file"
-
-    public void upload() {
-        try (InputStream input = file.getInputStream()) {
-            // Nom du fichier d'origine
-            String fileName = file.getSubmittedFileName();
-            
-         // Obtenez le chemin du dossier "Documents" de l'utilisateur actuel
-            String userHome = System.getProperty("user.home");
-            String documentsPath = userHome + File.separator + "ouvrages";
-
-            // Définissez l'emplacement de destination dans le dossier "Documents"
-            String destination = documentsPath + File.separator + fileName;
-            Files.copy(input, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
-            
-            // Exemple de traitement supplémentaire du fichier
-            // ...
-
-            // Message de succès
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Upload réussi !"));
-        } catch (IOException e) {
-            // Gestion des erreurs de lecture du fichier
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur lors de l'upload du fichier", null));
-        }
-    }
-    public void download(String fileName) {
-        try {
-        	//pareil que pour le dossire d'upload
-            String filePath = "/chemin/vers/dossier/destination/" + fileName;
-            File file = new File(filePath);
-
-            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-
-            response.reset();
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-
-            try (FileInputStream fileInputStream = new FileInputStream(file)) {
-                OutputStream responseOutputStream = response.getOutputStream();
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = fileInputStream.read(buffer)) != -1) {
-                    responseOutputStream.write(buffer, 0, bytesRead);
-                }
-                responseOutputStream.flush();
-            }
-
-            FacesContext.getCurrentInstance().responseComplete();
-        } catch (IOException e) {
-            // Gestion des erreurs de téléchargement
-            e.printStackTrace();
-        }}
 	
 }
