@@ -32,6 +32,11 @@ public class Ouvrage {
 	@Column( name = "nom" )
 	private String			nom;
 	
+	@Column( name = "couverture" )
+	private String			couverture;
+	@Column( name = "fichier" )
+	private String			fichier;
+	
 	
 	// Constructeurs
 	
@@ -83,6 +88,22 @@ public class Ouvrage {
 	
 	// hashcode() et equals()
 	
+	public String getCouverture() {
+		return couverture;
+	}
+
+	public void setCouverture(String couverture) {
+		this.couverture = couverture;
+	}
+
+	public String getFichier() {
+		return fichier;
+	}
+
+	public void setFichier(String fichier) {
+		this.fichier = fichier;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

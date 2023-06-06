@@ -61,9 +61,19 @@
 			
 			</tr>
 		</table>
-
 		<br /> 
-		<h:commandButton value="Emprunter" 
+		<!-- ajout de document -->
+		 <h:outputLabel for="ouvrage">Document--</h:outputLabel>
+         <h:inputFile id="ouvrage" value="#{modelOuvrage.file}" />
+         <h:commandButton value="Upload" action="#{modelOuvrage.upload}" />
+		<br /> 
+		<br /> 
+		<!-- ajout d'image -->
+		 <h:outputLabel for="couverture">couverture--</h:outputLabel>
+         <h:inputFile id="couverture" value="#{modelOuvrage.image}" />
+         <h:commandButton value="Upload" action="#{modelOuvrage.uploadImage}" />
+		<br /> 
+		<h:commandButton value="Ajouter" 
 			action="#{modelOuvrage.validerMiseAJour()}" />
 		<h:button value="Retour" outcome="ouvrages" />
 	</h:form>

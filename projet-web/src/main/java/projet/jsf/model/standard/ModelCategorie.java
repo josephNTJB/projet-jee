@@ -27,8 +27,6 @@ public class ModelCategorie implements Serializable {
 	
 	private List<Categorie>		liste;
 	
-	private Categorie			courant;
-	
 	@EJB
 	private IServiceCategorie	serviceCategorie;
 	
@@ -48,46 +46,7 @@ public class ModelCategorie implements Serializable {
 		return liste;
 	}
 
-	public Categorie getCourant() {
-		if ( courant == null ) {
-			courant = new Categorie();
-		}
-		return courant;
-	}
-	
-	
-	// Initialisaitons
-	
-	public String actualiserCourant() {
-		if ( courant != null ) {
-			DtoCategorie dto = serviceCategorie.retrouver( courant.getId() ); 
-			if ( dto == null ) {
-				UtilJsf.messageError( "La catégorie demandée n'existe pas" );
-				return "liste";
-			} else {
-				courant = mapper.map( dto );
-			}
-		}
-		return null;
-	}
-	
-	
 	// Actions
-	
-	public String validerMiseAJour() {
-		try {
-			if ( courant.getId() == null) {
-				serviceCategorie.inserer( mapper.map(courant) );
-			} else {
-				serviceCategorie.modifier( mapper.map(courant) );
-			}
-			UtilJsf.messageInfo( "Mise à jour effectuée avec succès." );
-			return "liste";
-		} catch (ExceptionValidation e) {
-			UtilJsf.messageError(e);
-			return null;
-		}
-	}
 	
 	public String supprimer( Categorie item ) {
 		try {

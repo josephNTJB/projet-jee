@@ -36,6 +36,8 @@ CREATE TABLE  ouvrage(
 	id_ouvrage      INT NOT NULL ,
 	auteur        VARCHAR (50) NOT NULL ,
 	nom           VARCHAR (50) NOT NULL ,
+	fichier       VARCHAR (50) NOT NULL ,
+	couverture    VARCHAR (50) NOT NULL ,
 	id_personne   INT  NOT NULL  ,
 	CONSTRAINT ouvrage_PK PRIMARY KEY (id_ouvrage)
 )WITHOUT OIDS;

@@ -35,17 +35,10 @@
 				<f:facet name="header">
 					<h:outputText value="Actions" />
 				</f:facet>
-				<h:button
-					outcome="formulaire?id=#{item.id}"
-					image="#{ resource['images:modifier.png'] }"
-					title="Modifier" 
-					styleClass="image-action"
-				/>
-				<h:commandButton action="#{modelPersonne.supprimerAmi(item)}" 
-					value="Supprimer" 
-					onclick="return confirm('Confirmez-vous la suppression ?')" 
-					image="#{ resource['images:poubelle.png'] }" 
-					title="Supprimer"
+				<h:commandButton action="#{modelOuvrage.download(item.file)}" 
+					value="Télécharger"
+					image="#{ resource['images:telecharger.gif'] }" 
+					title="Télécharger"
 					styleClass="image-action"
 				>
 					<f:ajax render="@form" execute="@form" />				
