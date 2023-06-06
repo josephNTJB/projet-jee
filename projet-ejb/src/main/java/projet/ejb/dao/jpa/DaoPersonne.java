@@ -87,10 +87,10 @@ public class DaoPersonne implements IDaoPersonne {
 	@Override
 	@TransactionAttribute( NOT_SUPPORTED )
 	public List<Personne> searchByNameOrSurname(String searchText, Personne personneCourante) {
-		  String jpql = "SELECT p FROM Personne  WHERE (p.nom LIKE :searchText OR p.prenom LIKE :searchText) AND p <> :personneCourante";
+		  String jpql = "SELECT p FROM Personne p WHERE (p.nom LIKE :searchText OR p.prenom LIKE :searchText)";// AND p <> :personneCourante";
 		  return em.createQuery(jpql, Personne.class)
 		    .setParameter("searchText", "%" + searchText + "%")
-		    .setParameter("personneCourante", personneCourante)
+		    //.setParameter("personneCourante", personneCourante)
 		    .getResultList();
 		  
 		}

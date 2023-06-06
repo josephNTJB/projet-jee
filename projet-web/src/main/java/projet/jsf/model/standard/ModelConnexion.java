@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import projet.commun.dto.DtoCompte;
+import projet.commun.service.IServiceCompte;
 import projet.commun.service.IServiceConnexion;
 import projet.jsf.data.Compte;
 import projet.jsf.util.CompteActif;
@@ -26,6 +27,8 @@ public class ModelConnexion {
 	private ModelInfo		modelInfo;
 	@EJB
 	private IServiceConnexion serviceConnexion;
+	@EJB
+	private IServiceCompte serviceCompte;
 
 
 	// Getters 
@@ -43,7 +46,6 @@ public class ModelConnexion {
 	public String connect() {
 	    
 	    DtoCompte dto = serviceConnexion.sessionUtilisateurOuvrir( courant.getPseudo(), courant.getMotDePasse() );
-	    
 	    if ( dto != null ){
 	    	
 //		    try {
@@ -52,13 +54,13 @@ public class ModelConnexion {
 //			} catch (ServletException e) {
 //				throw new RuntimeException( e );
 //			}
-
+	    	dto.setRoles(serviceCompte.listerRoles(dto.getId()));
 	        compteActif.setPseudo( dto.getPseudo() );
 	        compteActif.setRoles( dto.getRoles() );
 	        
 	    	modelInfo.setTitre( "Bienvenue" );
-	    	modelInfo.setTexte( "Vous êtes connecté en tant que '" + courant.getPseudo() +"'.");
 	    	modelInfo.setTexte( "Vous êtes connecté en tant que '" + courant.getRoles().size() +"'.");
+
 		    return "info";
 
 	    } else {

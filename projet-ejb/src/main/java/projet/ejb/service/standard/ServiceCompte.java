@@ -62,7 +62,11 @@ public class ServiceCompte implements IServiceCompte {
 		}
 		return liste;
 	}
-
+	@Override
+	@TransactionAttribute(NOT_SUPPORTED)
+	public List<String> listerRoles(int idCompte) {
+		return daoCompte.listerRoles(idCompte);
+	}
 	// Méthodes auxiliaires
 
 	private void verifierValiditeDonnees(DtoCompte dtoCompte) throws ExceptionValidation {

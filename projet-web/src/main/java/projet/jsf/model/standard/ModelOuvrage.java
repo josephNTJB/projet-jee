@@ -10,10 +10,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import projet.commun.dto.DtoCompte;
+import projet.commun.dto.DtoOuvrage;
 import projet.commun.exception.ExceptionValidation;
-import projet.commun.service.IServiceCompte;
-import projet.jsf.data.Compte;
+import projet.commun.service.IServiceOuvrage;
+import projet.jsf.data.Ouvrage;
 import projet.jsf.data.mapper.IMapper;
 import projet.jsf.util.UtilJsf;
 
@@ -21,17 +21,17 @@ import projet.jsf.util.UtilJsf;
 @SuppressWarnings("serial")
 @Named
 @RequestScoped
-public class ModelCompte implements Serializable {
+public class ModelOuvrage implements Serializable {
 
 	
 	// Champs
 	
-	private List<Compte>	liste;
+	private List<Ouvrage>	liste;
 	
-	private Compte			courant;
+	private Ouvrage			courant;
 	
 	@EJB
-	private IServiceCompte	serviceCompte;
+	private IServiceOuvrage	serviceOuvrage;
 	
 	@Inject
 	private IMapper			mapper;
@@ -39,19 +39,19 @@ public class ModelCompte implements Serializable {
 	
 	// Getters 
 	
-	public List<Compte> getListe() {
+	public List<Ouvrage> getListe() {
 		if ( liste == null ) {
 			liste = new ArrayList<>();
-			for ( DtoCompte dto : serviceCompte.listerTout() ) {
+			for ( DtoOuvrage dto : serviceOuvrage.listerTout() ) {
 				liste.add( mapper.map( dto ) );
 			}
 		}
 		return liste;
 	}
 	
-		public Compte getCourant() {
+		public Ouvrage getCourant() {
 			if ( courant == null ) {
-				courant = new Compte();
+				courant = new Ouvrage();
 			}
 			return courant;
 		}
@@ -61,9 +61,9 @@ public class ModelCompte implements Serializable {
 	
 	public String actualiserCourant() {
 		if ( courant != null ) {
-			DtoCompte dto = serviceCompte.retrouver( courant.getId() ); 
+			DtoOuvrage dto = serviceOuvrage.retrouver( courant.getId() ); 
 			if ( dto == null ) {
-				UtilJsf.messageError( "Le compte demandé n'existe pas" );
+				UtilJsf.messageError( "Le ouvrage demandé n'existe pas" );
 				return "test/liste";
 			} else {
 				courant = mapper.map( dto );
@@ -78,9 +78,9 @@ public class ModelCompte implements Serializable {
 	public String validerMiseAJour() {
 		try {
 			if ( courant.getId() == null) {
-				serviceCompte.inserer( mapper.map(courant) );
+				serviceOuvrage.insererPourPersonne( mapper.map(courant) );
 			} else {
-				serviceCompte.modifier( mapper.map(courant) );
+				serviceOuvrage.modifierPourPersonne( mapper.map(courant) );
 			}
 			UtilJsf.messageInfo( "Mise à jour effectuée avec succès." );
 			return "liste";
@@ -90,9 +90,9 @@ public class ModelCompte implements Serializable {
 		}
 	}
 	
-	public String supprimer( Compte item ) {
+	public String supprimer( Ouvrage item ) {
 		try {
-			serviceCompte.supprimer( item.getId() );
+			serviceOuvrage.supprimerPourPersonne( item.getId() );
 			liste.remove(item);
 			UtilJsf.messageInfo( "Suppression effectuée avec succès." );
 		} catch (ExceptionValidation e) {

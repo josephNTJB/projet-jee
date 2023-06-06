@@ -11,40 +11,33 @@
 
 	<h:form>
 
-		<h:dataTable styleClass="liste" 
+		<h:dataTable styleClass="liste"
 			value="#{modelPersonne.liste}" var="item" 
 			rowClasses="impair, pair" columnClasses="left,left,center"
 		>
+		    <h:column>
+		    <div>
+				<h:graphicImage
+				value="#{ resource['images:avatar'.concat(item.id).concat('.png')] }"
+				height="40" width="40" style="float:center;" /></div>
+			</h:column>
 			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Nom" />
-				</f:facet>
 				#{item.nom}
 			</h:column>
 			
 			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Prenom" />
-				</f:facet>
+
 				#{item.prenom}
 			</h:column>
 			
 			
 			
 			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Actions" />
-				</f:facet>
-				<h:button
-					outcome="formulaire?id=#{item.id}"
-					image="#{ resource['images:modifier.png'] }"
-					title="Modifier" 
-					styleClass="image-action"
-				/>
+
 				<h:commandButton action="#{modelPersonne.supprimerAmi(item)}" 
 					value="Supprimer" 
 					onclick="return confirm('Confirmez-vous la suppression ?')" 
-					image="#{ resource['images:supprimer.png'] }" 
+					image="#{ resource['images:poubelle.png'] }" 
 					title="Supprimer"
 					styleClass="image-action"
 				>

@@ -26,15 +26,11 @@
 	<ui:debug hotkey="x"
 		rendered="#{initParam['javax.faces.PROJECT_STAGE'] == 'Development'}" />
 	<div id="body">
-
-
 		<div id="header">
-			<h:graphicImage
-				value="https://www.bibliotheque-orgeval.net/userfiles/image/imgpageaccueil/logobibliov2.jpg"
-				height="80" width="80" style="float:center; right-padding: 100px;" />
+			<h:graphicImage value="#{ resource['images:logo.png'] }" height="80"
+				width="80" style="float:left; margin-right: -20%;" />
 
 			<br /> <br />
-
 			<h:outputText value="&nbsp;" rendered="#{not compteActif.loggedIn}" />
 			<h:form rendered="#{compteActif.loggedIn}">
 

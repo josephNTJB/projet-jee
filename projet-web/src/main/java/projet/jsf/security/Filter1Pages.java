@@ -19,7 +19,7 @@ import projet.jsf.util.UtilJsf;
 				DispatcherType.REQUEST, 
 				DispatcherType.FORWARD
 		}
-					, urlPatterns = { "/pages/*", "/javax.faces.resource/pdf/*" })
+		, urlPatterns = { "/pages/*", "/javax.faces.resource/pdf/*" })
 public class Filter1Pages implements Filter {
 
 	

@@ -28,7 +28,9 @@ public interface IServicePersonne {
 
 	void validateInvitation(int idAmi, int idPersonne);
 
-	void deleteFriend(int idAmi, int idPersonne);
+	void deleteFriend(int idAmi, int idPersonne) throws ExceptionValidation;;
+
+	void cancelDemand(int idAmi, int idPersonne) throws ExceptionValidation;;
 	
 
 }

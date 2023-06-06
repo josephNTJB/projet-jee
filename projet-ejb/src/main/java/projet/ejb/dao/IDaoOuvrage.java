@@ -14,8 +14,10 @@ public interface IDaoOuvrage {
 
 	void supprimerPourPersonne(int idOuvrage);
 
-	List<Ouvrage> listerPourPersonne( Ouvrage ouvrage );
-
 	Ouvrage retrouver(int idOuvrage);
+
+	List<Ouvrage> listerTout();
+
+	List<Ouvrage> listerPourPersonne(int idPersonne);
 
 }

@@ -1,6 +1,7 @@
 package projet.ejb.dao.jpa;
 
 import static javax.ejb.TransactionAttributeType.MANDATORY;
+
 import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
 
 import java.util.List;
@@ -54,14 +55,28 @@ public class DaoOuvrage implements IDaoOuvrage {
 		em.remove( retrouver(idOuvrage) );
 		
 	}
+	
 
 	@Override
 	@TransactionAttribute( NOT_SUPPORTED )
-	public List<Ouvrage> listerPourPersonne(Ouvrage ouvrage) {
+	public List<Ouvrage> listerPourPersonne(int idPersonne) {
+		em.clear();
+		var jpql = "SELECT c FROM Ouvrage c ORDER BY c.libelle WHERE id_Personne =:idPersonne";
+		var query = em.createQuery( jpql, Ouvrage.class );
+		return query.getResultList();
+	}
+	
+	@Override
+	@TransactionAttribute( NOT_SUPPORTED )
+	public List<Ouvrage> listerTout() {
 		em.clear();
 		var jpql = "SELECT c FROM Ouvrage c ORDER BY c.libelle";
 		var query = em.createQuery( jpql, Ouvrage.class );
 		return query.getResultList();
 	}
+
+	
+	
+	
 	
 }

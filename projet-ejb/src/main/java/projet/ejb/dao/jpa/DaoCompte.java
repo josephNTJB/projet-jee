@@ -3,6 +3,7 @@ package projet.ejb.dao.jpa;
 import static javax.ejb.TransactionAttributeType.MANDATORY;
 import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -14,6 +15,8 @@ import javax.persistence.PersistenceContext;
 
 import projet.ejb.dao.IDaoCompte;
 import projet.ejb.data.Compte;
+import projet.ejb.data.Role;
+import projet.commun.dto.Roles;
 
 
 @Stateless
@@ -60,6 +63,17 @@ public class DaoCompte implements IDaoCompte {
 		var jpql = "SELECT c FROM Compte c ORDER BY c.pseudo";
 		var query = em.createQuery( jpql, Compte.class );
 		return query.getResultList();
+	}
+	@Override
+	@TransactionAttribute( NOT_SUPPORTED )
+	public List<String> listerRoles(int idCompte) {
+		em.clear();
+		var jpql = "SELECT r.libelle FROM Role r WHERE r.id = :idCompte";
+		var query = em.createQuery( jpql, String.class );
+		query.setParameter( "idCompte", idCompte );
+		List<String> roles=query.getResultList();System.out.println("*********"+roles);
+		
+		return roles;
 	}
 
 
