@@ -57,11 +57,13 @@ public class Ouvrage {
 	public Ouvrage() {
 	}
 	
-	public Ouvrage(int id, Personne personne, String auteur, String nom) {
+	public Ouvrage(int id, Personne personne, String auteur, String nom,String fichier,String couverture) {
 		this.id = id;
 		this.personne = personne;
 		this.auteur = auteur;
 		this.nom = nom;
+		this.fichier = fichier;
+		this.couverture = couverture;
 	}
 
 

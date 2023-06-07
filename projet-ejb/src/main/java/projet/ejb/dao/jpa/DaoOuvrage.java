@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import projet.ejb.dao.IDaoOuvrage;
+import projet.ejb.data.Emprunt;
 import projet.ejb.data.Ouvrage;
 
 
@@ -52,7 +53,7 @@ public class DaoOuvrage implements IDaoOuvrage {
 
 	@Override
 	public void supprimerPourPersonne(Ouvrage ouvrage) {
-		em.remove(ouvrage);
+		em.remove(em.getReference(Ouvrage.class, ouvrage.getId()));
 		
 	}
 	
@@ -73,6 +74,32 @@ public class DaoOuvrage implements IDaoOuvrage {
 		em.clear();
 		var jpql = "SELECT o FROM Ouvrage o ORDER BY o.nom";
 		var query = em.createQuery( jpql, Ouvrage.class );
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Ouvrage> listerPourAmis(int idPersonne) {
+		em.clear();
+		var jpql = "SELECT o FROM Ouvrage o  WHERE o.personne.id IN (SELECT p.id FROM Personne p WHERE p.id IN ( SELECT CASE WHEN a.idpersonne = :idPerson THEN a.idami ELSE a.idpersonne END FROM Amitie a WHERE (a.idpersonne = :idPerson OR a.idami = :idPerson) AND a.isValid = true)) ORDER BY o.nom";
+		var query = em.createQuery( jpql, Ouvrage.class );
+		query.setParameter("idPerson", idPersonne);
+		return query.getResultList();
+	}
+
+	@Override
+	public int insererEmprunt(int idOuvrage, int idPersonne) {
+		Emprunt emp=new Emprunt(idOuvrage,idPersonne);
+		em.persist(emp);
+		em.flush();
+		return 0;
+	}
+
+	@Override
+	public List<Ouvrage> listerPourEmprunts(int idPersonne) {
+		em.clear();
+		var jpql = "SELECT o FROM Ouvrage o  WHERE o.id IN (SELECT e.idouvrage FROM Emprunt e WHERE e.idpersonne = :idpersonne )";
+		var query = em.createQuery( jpql, Ouvrage.class );
+		query.setParameter("idpersonne", idPersonne);
 		return query.getResultList();
 	}
 

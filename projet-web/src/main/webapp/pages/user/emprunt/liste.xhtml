@@ -1,44 +1,48 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://java.sun.com/jsf/html"
-     xmlns:f="http://java.sun.com/jsf/core"
-     xmlns:ui="http://java.sun.com/jsf/facelets"
-     template="/template/page-standard.xhtml" >
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/page-standard.xhtml">
 
-     <ui:define name="titre">Liste d'amis</ui:define>
+	<ui:define name="titre">Mes Emprunts</ui:define>
 
-    <ui:define name="contenu">
-
+	<ui:define name="contenu">
+		
 	<h:form>
 
-		<h:dataTable styleClass="liste" 
-			value="#{modelPersonne.liste}" var="item" 
+		<h:dataTable styleClass="liste"
+			value="#{modelOuvrage.listeEmprunts}" var="item" 
 			rowClasses="impair, pair" columnClasses="left,left,center"
 		>
+		    <h:column>
+		    <div>
+				<h:graphicImage
+				value="#{ resource['images:cover'.concat(item.id%8+1).concat('.jpg')] }"
+				height="250" width="200" style="float:center;" /></div>
+			</h:column>
 			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Nom" />
-				</f:facet>
 				#{item.nom}
+			     <br/>
+				par: #{item.auteur}
+			     <br/>
+				~~ #{item.categorieToString()}
 			</h:column>
-			
 			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Prenom" />
-				</f:facet>
-				#{item.prenom}
-			</h:column>
-			
-			
-			
+				<h:graphicImage
+				value="#{ resource['images:avatar'.concat(item.personne.id%6).concat('.png')] }"
+				height="40" width="40" style="float:center;" />
+				<br/>
+				#{item.personne.nom}
+			</h:column>		
 			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Actions" />
-				</f:facet>
-				<h:commandButton action="#{modelOuvrage.download(item.file)}" 
-					value="Télécharger"
-					image="#{ resource['images:telecharger.gif'] }" 
-					title="Télécharger"
+
+				<h:commandButton action="#{modelOuvrage.download(item.fichier)}" 
+					value="telecharger" 
+					onclick="return confirm('vous allez telecharger l'ouvrage !')" 
+					image="#{ resource['images:telecharger.png'] }" 
+					height="100" width="120" 
+					title="telecharger"
 					styleClass="image-action"
 				>
 					<f:ajax render="@form" execute="@form" />				
@@ -48,7 +52,6 @@
 		</h:dataTable>
 		
 		<br />
-		<h:button value="Ajouter" outcome="formulaire" />
 
 	</h:form>
 

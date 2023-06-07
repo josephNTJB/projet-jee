@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/template/page-standard.xhtml">
 
-	<ui:define name="titre">Liste des ouvrages</ui:define>
+	<ui:define name="titre">Mes ouvrages</ui:define>
 
 	<ui:define name="contenu">
 
@@ -56,8 +56,55 @@
 
 			<br />
 			<h:button value="Ajouter" outcome="formulaire" />
-
+			
 		</h:form>
+		<h1 style="text-align:center;">emprunter</h1>
+		
+	<h:form>
+
+		<h:dataTable styleClass="liste"
+			value="#{modelOuvrage.listePourAmis}" var="item" 
+			rowClasses="impair, pair" columnClasses="left,left,center"
+		>
+		    <h:column>
+		    <div>
+				<h:graphicImage
+				value="#{ resource['images:cover'.concat(item.id%8+1).concat('.jpg')] }"
+				height="200" width="200" style="float:center;" /></div>
+			</h:column>
+			<h:column>
+				#{item.nom}
+			     <br/>
+				par: #{item.auteur}
+			     <br/>
+				~~ #{item.categorieToString()}
+			</h:column>
+			<h:column>
+				<h:graphicImage
+				value="#{ resource['images:avatar'.concat(item.personne.id%6).concat('.png')] }"
+				height="40" width="40" style="float:center;" />
+				<br/>
+				#{item.personne.nom}
+			</h:column>		
+			<h:column>
+
+				<h:commandButton action="#{modelOuvrage.emprunter(item)}" 
+					value="emprunter" 
+					onclick="return confirm('vous allez telecharger l'ouvrage !')" 
+					image="#{ resource['images:verifier.png'] }" 
+					height="100" width="120" 
+					title="emprunter"
+					styleClass="image-action"
+				>
+					<f:ajax render="@form" execute="@form" />				
+				</h:commandButton>
+			</h:column>
+			
+		</h:dataTable>
+		
+		<br />
+
+	</h:form>
 
 	</ui:define>
 

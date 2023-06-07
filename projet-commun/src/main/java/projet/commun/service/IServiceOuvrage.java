@@ -26,6 +26,15 @@ public interface IServiceOuvrage {
 	void modifierPourPersonne(DtoOuvrage dtoOuvrage) throws ExceptionValidation;
 
 
+	List<DtoOuvrage> listerPourAmis(int id);
+
+
+	int emprunter(int id, int id2);
+
+
+	List<DtoOuvrage> listerPourEmprunts(int id);
+
+
 	
 
 }

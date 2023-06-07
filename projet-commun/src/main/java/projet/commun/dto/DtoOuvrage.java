@@ -17,7 +17,13 @@ public class DtoOuvrage implements Serializable {
 
 	private String			auteur;
 	
-	private List<DtoCategorie> categories = new ArrayList<>();	
+	private List<DtoCategorie> categories = new ArrayList<>();
+	
+	private DtoPersonne     personne;
+
+	private String			couverture;
+
+	private String			fichier;
 	
 	// Constructeurs
 	
@@ -64,4 +70,29 @@ public class DtoOuvrage implements Serializable {
 	public void setCategories(List<DtoCategorie> categories) {
 		this.categories = categories;
 	}
+
+	public String getCouverture() {
+		return couverture;
+	}
+
+	public void setCouverture(String couverture) {
+		this.couverture = couverture;
+	}
+
+	public String getFichier() {
+		return fichier;
+	}
+
+	public void setFichier(String fichier) {
+		this.fichier = fichier;
+	}
+
+	public DtoPersonne getPersonne() {
+		return personne;
+	}
+
+	public void setPersonne(DtoPersonne personne) {
+		this.personne = personne;
+	}
+
 }
