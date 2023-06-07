@@ -19,7 +19,7 @@ public class Categorie {
     
 	@Id
 	@GeneratedValue( strategy = IDENTITY )
-	@Column( name = "idcategorie" )
+	@Column( name = "id_categorie" )
     private int         	id;
     
 	@Column( name = "libelle" )

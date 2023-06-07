@@ -87,7 +87,23 @@ public class Ouvrage implements Serializable {
 	public void setCategories(List<Categorie> categories) {
 		this.categories = categories;
 	}
-
+	
+	public String categorieToString()
+	{
+		String format="";
+		
+		
+		for (Categorie c : categories)
+		{
+			if (categories.size() ==1)
+				format= c.getLibelle();
+			else
+				format+="," + c.getLibelle();
+		}
+		
+		return format;
+		
+	}
 	
 	// hashCode() & equals()
 

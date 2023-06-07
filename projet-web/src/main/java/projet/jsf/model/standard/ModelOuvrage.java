@@ -13,13 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-<<<<<<< HEAD
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-=======
->>>>>>> branch 'master' of https://github.com/josephNTJB/projet-jee.git
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
@@ -36,13 +32,15 @@ import projet.jsf.util.UtilJsf;
 
 @SuppressWarnings("serial")
 @Named
-@RequestScoped
+@ViewScoped
 public class ModelOuvrage implements Serializable {
 
 	
 	// Champs
 	
 	private List<Ouvrage>	liste;
+	
+	private List<Ouvrage> listePourPersonne ;
 	
 	private Ouvrage			courant;
 	
@@ -69,13 +67,13 @@ public class ModelOuvrage implements Serializable {
 	}
 	
 	public List<Ouvrage> getListePourPersonne() {
-		List<Ouvrage> liste = new ArrayList<Ouvrage>();
-	
+		if ( listePourPersonne == null ) {
+			listePourPersonne= new ArrayList<>();
 			for ( DtoOuvrage dto : serviceOuvrage.listerPourPersonne(compteActif.getId()) ) {
-				liste.add( mapper.map( dto ) );
+				listePourPersonne.add( mapper.map( dto ) );
 			}
-		
-		return liste;
+		}
+		return listePourPersonne;
 	}
 	
 		public Ouvrage getCourant() {
@@ -88,9 +86,9 @@ public class ModelOuvrage implements Serializable {
 	
 	// Initialisaitons
 	
-	public String actualiserCourant() {
+	public String actualiserCourant(int id) {
 		if ( courant != null ) {
-			DtoOuvrage dto = serviceOuvrage.retrouver( courant.getId() ); 
+			DtoOuvrage dto = serviceOuvrage.retrouver( id ); 
 			if ( dto == null ) {
 				UtilJsf.messageError( "L'ouvrage demandé n'existe pas" );
 				return "test/liste";
@@ -104,9 +102,9 @@ public class ModelOuvrage implements Serializable {
 	
 	// Actions
 	
-	public String validerMiseAJour() {
+	public String validerMiseAJour(int idOuvrage) {
 		try {
-			actualiserCourant();
+			actualiserCourant(idOuvrage);
 			if ( courant.getId() == null) {
 				serviceOuvrage.insererPourPersonne( mapper.map(courant) );
 				upload();
@@ -126,8 +124,9 @@ public class ModelOuvrage implements Serializable {
 	
 	public String supprimer( Ouvrage item ) {
 		try {
-			serviceOuvrage.supprimerPourPersonne( item.getId() );
-			liste.remove(item);
+			actualiserCourant(item.getId());
+			serviceOuvrage.supprimerPourPersonne( mapper.map(courant) );
+			listePourPersonne.remove(item);
 			UtilJsf.messageInfo( "Suppression effectuée avec succès." );
 		} catch (ExceptionValidation e) {
 			UtilJsf.messageError( e ); 

@@ -3,6 +3,7 @@ package projet.ejb.dao;
 import java.util.List;
 
 import projet.ejb.data.Personne;
+import projet.commun.dto.DtoOuvrage;
 import projet.ejb.data.Ouvrage;
 
 
@@ -12,12 +13,12 @@ public interface IDaoOuvrage {
 
 	void modifierPourPersonne(Ouvrage ouvrage);
 
-	void supprimerPourPersonne(int idOuvrage);
-
 	Ouvrage retrouver(int idOuvrage);
 
 	List<Ouvrage> listerTout();
 
 	List<Ouvrage> listerPourPersonne(int idPersonne);
+
+	void supprimerPourPersonne(Ouvrage ouvrage);
 
 }

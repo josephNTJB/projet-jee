@@ -1,6 +1,7 @@
 package projet.commun.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public class DtoOuvrage implements Serializable {
 
 	private String			auteur;
 	
-	private List<DtoCategorie> categories;	
+	private List<DtoCategorie> categories = new ArrayList<>();	
 	
 	// Constructeurs
 	
