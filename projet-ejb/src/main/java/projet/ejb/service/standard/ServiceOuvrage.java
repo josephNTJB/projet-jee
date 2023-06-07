@@ -46,7 +46,7 @@ public class ServiceOuvrage implements IServiceOuvrage{
 
 	@Override
 	public void supprimer() throws ExceptionValidation {
-		daoOuvrage.supprimerPourPersonne(courant.getId());
+		//daoOuvrage.supprimer(courant.getId());
 	}
 
 	@Override
@@ -85,8 +85,8 @@ public class ServiceOuvrage implements IServiceOuvrage{
 	}
 
 	@Override
-	public void supprimerPourPersonne(int idOuvrage) throws ExceptionValidation {
-		daoOuvrage.supprimerPourPersonne(idOuvrage);
+	public void supprimerPourPersonne(DtoOuvrage ouvrage) throws ExceptionValidation {
+		daoOuvrage.supprimerPourPersonne(mapper.map(ouvrage));
 		
 	}
 

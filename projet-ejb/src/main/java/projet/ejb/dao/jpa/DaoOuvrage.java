@@ -51,8 +51,8 @@ public class DaoOuvrage implements IDaoOuvrage {
 	}
 
 	@Override
-	public void supprimerPourPersonne(int idOuvrage) {
-		em.remove( retrouver(idOuvrage) );
+	public void supprimerPourPersonne(Ouvrage ouvrage) {
+		em.remove(ouvrage);
 		
 	}
 	

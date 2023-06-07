@@ -125,5 +125,11 @@ public class Ouvrage {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Ouvrage [id=" + id + ", personne=" + personne + ", auteur=" + auteur + ", nom=" + nom + ", categories="
+				+ categories + "]";
+	}
 	
 }

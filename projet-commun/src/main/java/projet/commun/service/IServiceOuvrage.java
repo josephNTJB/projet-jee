@@ -6,13 +6,13 @@ import projet.commun.dto.DtoOuvrage;
 import projet.commun.exception.ExceptionValidation;
 
 
+
 public interface IServiceOuvrage {
 	
 	int insererPourPersonne(DtoOuvrage dtoOuvrage) throws ExceptionValidation;
 
-	void modifierPourPersonne(DtoOuvrage dtoOuvrage) throws ExceptionValidation;
 
-	void supprimerPourPersonne(int idOuvrage) throws ExceptionValidation;
+	void supprimerPourPersonne(DtoOuvrage ouvrage) throws ExceptionValidation;
 	
 	List<DtoOuvrage> listerTout();
 
@@ -21,6 +21,9 @@ public interface IServiceOuvrage {
 	DtoOuvrage  retrouver(int idOuvrage);
 
 	void supprimer() throws ExceptionValidation;
+
+
+	void modifierPourPersonne(DtoOuvrage dtoOuvrage) throws ExceptionValidation;
 
 
 	

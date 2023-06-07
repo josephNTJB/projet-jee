@@ -75,9 +75,9 @@ public class ModelOuvrage implements Serializable {
 	
 	// Initialisaitons
 	
-	public String actualiserCourant() {
+	public String actualiserCourant(int id) {
 		if ( courant != null ) {
-			DtoOuvrage dto = serviceOuvrage.retrouver( courant.getId() ); 
+			DtoOuvrage dto = serviceOuvrage.retrouver( id ); 
 			if ( dto == null ) {
 				UtilJsf.messageError( "L'ouvrage demandé n'existe pas" );
 				return "test/liste";
@@ -108,7 +108,8 @@ public class ModelOuvrage implements Serializable {
 	
 	public String supprimer( Ouvrage item ) {
 		try {
-			serviceOuvrage.supprimerPourPersonne( item.getId() );
+			actualiserCourant(item.getId());
+			serviceOuvrage.supprimerPourPersonne( mapper.map(courant) );
 			listePourPersonne.remove(item);
 			UtilJsf.messageInfo( "Suppression effectuée avec succès." );
 		} catch (ExceptionValidation e) {
