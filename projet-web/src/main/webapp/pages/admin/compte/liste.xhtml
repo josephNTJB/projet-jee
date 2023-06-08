@@ -5,7 +5,7 @@
      xmlns:ui="http://java.sun.com/jsf/facelets"
      template="/template/page-standard.xhtml" >
 
-     <ui:define name="titre">Liste des comptes</ui:define>
+     <ui:define name="titre">Liste des personnes</ui:define>
 
     <ui:define name="contenu">
 
@@ -17,7 +17,7 @@
 		>
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="Psudo" />
+					<h:outputText value="Pseudo" />
 				</f:facet>
 				#{item.pseudo}
 			</h:column>
@@ -27,7 +27,7 @@
 					<h:outputText value="Rôles" />
 				</f:facet>
 				<ui:repeat value="#{item.roles}" var="role" varStatus="status" >
-					#{utilAppli.getLibelléDeRole(role)}#{not status.last ? ', ' : ''}
+					#{item.roles}#{not status.last ? ', ' : ''}
 				</ui:repeat>
 			</h:column>
 			

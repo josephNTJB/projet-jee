@@ -49,6 +49,16 @@ public class ModelCompte implements Serializable {
 		return liste;
 	}
 	
+	public List<Compte> getListeSaufMoi() {
+		if ( liste == null ) {
+			liste = new ArrayList<>();
+			for ( DtoCompte dto : serviceCompte.listerToutSaufMoi(courant.getId()) ) {
+				liste.add( mapper.map( dto ) );
+			}
+		}
+		return liste;
+	}
+	
 		public Compte getCourant() {
 			if ( courant == null ) {
 				courant = new Compte();

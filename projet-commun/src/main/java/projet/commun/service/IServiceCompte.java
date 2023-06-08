@@ -20,4 +20,6 @@ public interface IServiceCompte {
 
 	List<String> listerRoles(int idCompte);
 
+	List<DtoCompte> listerToutSaufMoi(int idCompte);
+
 }

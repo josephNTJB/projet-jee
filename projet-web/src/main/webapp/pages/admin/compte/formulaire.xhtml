@@ -22,7 +22,7 @@
 					<h:outputLabel for="id">Id :</h:outputLabel>				
 				</td>
 				<td>
-					<h:inputText id="id" size="5" readonly="true"
+					<h:outputText id="id" size="5" readonly="true"
 						value="#{modelCompte.courant.id}" />
 					<br /><h:message for="id" errorClass="error"/>
 				</td>
@@ -47,16 +47,7 @@
 					<br /><h:message for="motDePasse" errorClass="error"/>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<h:outputLabel for="email">Email :</h:outputLabel>				
-				</td>
-				<td>
-					<h:inputText id="email" size="50" 
-						value="#{modelCompte.courant.email}" />
-					<br /><h:message for="email" errorClass="error"/>
-				</td>
-			</tr>
+			
 			<tr>
 				<td>
 					<h:outputLabel for="roles">Roles :</h:outputLabel>				

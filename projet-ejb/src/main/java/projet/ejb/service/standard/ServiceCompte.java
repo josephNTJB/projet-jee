@@ -62,6 +62,17 @@ public class ServiceCompte implements IServiceCompte {
 		}
 		return liste;
 	}
+	
+	@Override
+	@TransactionAttribute(NOT_SUPPORTED)
+	public List<DtoCompte> listerToutSaufMoi(int idCompte) {
+		List<DtoCompte> liste = new ArrayList<>();
+		for (Compte compte : daoCompte.listerToutSaufMoi(idCompte)) {
+			liste.add(mapper.map(compte));
+		}
+		return liste;
+	}
+	
 	@Override
 	@TransactionAttribute(NOT_SUPPORTED)
 	public List<String> listerRoles(int idCompte) {
