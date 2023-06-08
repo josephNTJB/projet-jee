@@ -24,10 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import projet.commun.dto.DtoOuvrage;
+import projet.commun.dto.DtoPersonne;
 import projet.commun.exception.ExceptionValidation;
 import projet.commun.service.IServiceOuvrage;
 import projet.commun.service.IServicePersonne;
 import projet.jsf.data.Ouvrage;
+import projet.jsf.data.Personne;
 import projet.jsf.data.mapper.IMapper;
 import projet.jsf.util.CompteActif;
 import projet.jsf.util.UtilJsf;
@@ -48,6 +50,8 @@ public class ModelOuvrage implements Serializable {
 	private List<Ouvrage> listeEmprunts ;
 
 	private Ouvrage			courant;
+	
+	private String searchText;
 
 	@EJB
 	private IServiceOuvrage	serviceOuvrage;
@@ -93,31 +97,45 @@ public class ModelOuvrage implements Serializable {
 
 	// Initialisaitons
 
-	public String actualiserCourant(int id) {
-		DtoOuvrage dto = serviceOuvrage.retrouver( id ); 
-		if ( dto == null ) {
-			UtilJsf.messageError( "L'ouvrage demandé n'existe pas" );
-			return "test/liste";
-		} else {
-			courant = mapper.map( dto );
+	public String actualiserCourant() {
+		if ( courant != null ) {
+			DtoOuvrage dto = serviceOuvrage.retrouver( courant.getId() ); 
+			if ( dto == null ) {
+				UtilJsf.messageError( "La catégorie demandée n'existe pas" );
+				return "liste";
+			} else {
+				courant = mapper.map( dto );
+			}
 		}
-
 		return null;
 	}
 
 
 	// Actions
+	public void search() {
+	    actualiserCourant();
+		if(listePourAmis==null) {listePourAmis = new ArrayList<>();}
+		for ( DtoOuvrage dto : serviceOuvrage.searchByNameOrAutor(searchText,mapper.map(courant))) {
+			liste.add( mapper.map( dto ) );
+		}
 
+}
+//mettre à jour des personnes à inviter
+	public void searchForDocument() throws ExceptionValidation {
+		actualiserCourant();
+		search();
+	}
 	public String validerMiseAJour(int idOuvrage) {
 		try {
-			actualiserCourant(idOuvrage);
+			courant.setId(idOuvrage);
+			actualiserCourant();
 			if ( courant.getId() == null) {
 				serviceOuvrage.insererPourPersonne( mapper.map(courant) );
 				upload();
 			} else {
 				serviceOuvrage.modifierPourPersonne( mapper.map(courant) );
 				if(file!=null) {
-					upload();
+				 upload();
 				}
 			}
 			UtilJsf.messageInfo( "Mise à jour effectuée avec succès." );
@@ -131,7 +149,8 @@ public class ModelOuvrage implements Serializable {
 	public String supprimer( Ouvrage item ) {
 		try {
 			System.out.println("------------------"+item.toString());
-			actualiserCourant(item.getId());
+			courant.setId(item.getId());
+			actualiserCourant();
 			serviceOuvrage.supprimerPourPersonne( mapper.map(courant) );
 			listePourPersonne.remove(item);
 			UtilJsf.messageInfo( "Suppression effectuée avec succès." );

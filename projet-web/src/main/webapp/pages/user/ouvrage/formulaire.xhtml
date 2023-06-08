@@ -7,14 +7,14 @@
 
 	 <f:metadata>
 		 <f:viewParam name="id" value="#{modelOuvrage.courant.id}" />
-		 <f:viewAction action="#{modelOuvrage.actualiserCourant(modelOuvrage.courant.id)}" />
+		 <f:viewAction action="#{modelOuvrage.actualiserCourant()}" />
 	 </f:metadata>
 
     <ui:define name="titre">Ouvrage</ui:define>
 
     <ui:define name="contenu">
 
-	<h:form>
+	<h:form enctype="multipart/form-data">
 	
 		<table class="form">
 			<tr>
@@ -42,9 +42,14 @@
 					<h:outputLabel for="categorie">Categories :</h:outputLabel>				
 				</td>
 				<td>
-					<h:inputText id="categorie" size="25" 
-						value="#{modelOuvrage.courant.categories}" />
-					<br /><h:message for="categorie" errorClass="error"/>
+					<h:selectOneMenu id="categorie"
+			value="#{modelOuvrage.courant.categories}"
+			converter="#{converterCategorie}">
+			<f:selectItems value="#{modelOuvrage.courant.categories}"
+			var="item" itemLabel="#{item.libelle}"
+			/>
+			<br /><h:message for="categorie" errorClass="error"/>
+			</h:selectOneMenu>
 				</td>
 			</tr>
 			<tr>

@@ -11,10 +11,12 @@ import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
 
 import projet.commun.dto.DtoOuvrage;
+import projet.commun.dto.DtoPersonne;
 import projet.commun.exception.ExceptionValidation;
 import projet.commun.service.IServiceOuvrage;
 import projet.ejb.dao.IDaoOuvrage;
 import projet.ejb.data.Ouvrage;
+import projet.ejb.data.Personne;
 import projet.ejb.data.mapper.IMapperEjb;
 
 @Stateless
@@ -118,6 +120,15 @@ public class ServiceOuvrage implements IServiceOuvrage{
 		List<DtoOuvrage> liste = new ArrayList<>();
 		for (Ouvrage ouvrage : daoOuvrage.listerPourEmprunts(idPersonne)) {
 			liste.add(mapper.map(ouvrage));
+		}
+		return liste;
+	}
+
+	@Override
+	public List<DtoOuvrage> searchByNameOrAutor(String searchText, DtoOuvrage ouvrage) {
+		List<DtoOuvrage> liste = new ArrayList<>();
+		for (Ouvrage ouvr : daoOuvrage.searchByNameOrAutor(searchText, mapper.map(ouvrage))) {
+			liste.add( mapper.map(ouvr) );
 		}
 		return liste;
 	}
