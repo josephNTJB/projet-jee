@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import projet.ejb.dao.IDaoOuvrage;
 import projet.ejb.data.Emprunt;
 import projet.ejb.data.Ouvrage;
+import projet.ejb.data.Personne;
 
 
 @Stateless
@@ -101,6 +102,14 @@ public class DaoOuvrage implements IDaoOuvrage {
 		var query = em.createQuery( jpql, Ouvrage.class );
 		query.setParameter("idpersonne", idPersonne);
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Ouvrage> searchByNameOrAutor(String searchText, Ouvrage ouvrage) {
+		  String jpql = "SELECT o FROM Ouvrage o WHERE (o.nom LIKE :searchText OR o.auteur LIKE :searchText) ";
+		  return em.createQuery(jpql, Ouvrage.class)
+		    .setParameter("searchText", "%" + searchText + "%")
+		    .getResultList();
 	}
 
 	

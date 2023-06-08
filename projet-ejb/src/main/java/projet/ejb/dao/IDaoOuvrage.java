@@ -27,4 +27,6 @@ public interface IDaoOuvrage {
 
 	List<Ouvrage> listerPourEmprunts(int idPersonne);
 
+	List<Ouvrage> searchByNameOrAutor(String searchText, Ouvrage ouvrage);
+
 }

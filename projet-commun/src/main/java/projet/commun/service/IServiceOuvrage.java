@@ -35,6 +35,9 @@ public interface IServiceOuvrage {
 	List<DtoOuvrage> listerPourEmprunts(int id);
 
 
+	List<DtoOuvrage> searchByNameOrAutor(String searchText, DtoOuvrage map);
+
+
 	
 
 }
