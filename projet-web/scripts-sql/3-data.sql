@@ -22,18 +22,18 @@ INSERT INTO personne (id_personne, nom, prenom) VALUES
 
 
 
-INSERT INTO ouvrage (id_ouvrage, auteur, nom, id_personne) VALUES 
-  (1, 'George Orwell',  '1984', 1),
-  (2, 'Harper Lee', 'Ne tirez pas sur loiseau moqueur', 3),
-  (3, 'F. Scott Fitzgerald', 'Gatsby le magnifique', 4),
-  (4, 'William Shakespeare', 'Romeo et Juliette', 5),
-  (5, 'Jane Austen', 'Orgueil et Prejuges', 3),
-  (6, 'Gabriel Garcia Marquez', 'Cent ans de solitude', 1),
-  (7, 'Markus Zusak', 'La voleuse de livres', 2),
-  (8, 'Ray Bradbury',  'Fahrenheit 451', 3),
-  (9, 'Stephen King', 'Shining', 4),
-  (10, 'Dan Brown',  'Da Vinci Code', 5),
-  (11, 'J.K. Rowling', 'Harry Potter a lecole des sorciers', 2);
+INSERT INTO ouvrage (id_ouvrage,fichier,couverture, auteur, nom, id_personne) VALUES 
+  (1,'fichier','couverture','George Orwell',  '1984', 1),
+  (2,'fichier','couverture', 'Harper Lee', 'Ne tirez pas sur loiseau moqueur', 3),
+  (3, 'fichier','couverture','F. Scott Fitzgerald', 'Gatsby le magnifique', 4),
+  (4,'fichier','couverture', 'William Shakespeare', 'Romeo et Juliette', 5),
+  (5,'fichier','couverture', 'Jane Austen', 'Orgueil et Prejuges', 3),
+  (6,'fichier','couverture', 'Gabriel Garcia Marquez', 'Cent ans de solitude', 1),
+  (7,'fichier','couverture', 'Markus Zusak', 'La voleuse de livres', 2),
+  (8,'fichier','couverture', 'Ray Bradbury',  'Fahrenheit 451', 3),
+  (9, 'fichier','couverture','Stephen King', 'Shining', 4),
+  (10, 'fichier','couverture','Dan Brown',  'Da Vinci Code', 5),
+  (11, 'fichier','couverture','J.K. Rowling', 'Harry Potter a lecole des sorciers', 2);
 
 --ALTER TABLE ouvrage ALTER COLUMN id_ouvrage RESTART WITH 11;
 

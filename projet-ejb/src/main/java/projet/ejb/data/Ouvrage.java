@@ -46,17 +46,24 @@ public class Ouvrage {
 				inverseJoinColumns = @JoinColumn( name="id_categorie"))
 	private List<Categorie> categories = new ArrayList<Categorie>();
 	
+	@Column( name = "couverture" )
+	private String			couverture;
+	@Column( name = "fichier" )
+	private String			fichier;
+	
 	
 	// Constructeurs
 	
 	public Ouvrage() {
 	}
 	
-	public Ouvrage(int id, Personne personne, String auteur, String nom) {
+	public Ouvrage(int id, Personne personne, String auteur, String nom,String fichier,String couverture) {
 		this.id = id;
 		this.personne = personne;
 		this.auteur = auteur;
 		this.nom = nom;
+		this.fichier = fichier;
+		this.couverture = couverture;
 	}
 
 
@@ -104,6 +111,22 @@ public class Ouvrage {
 	
 	// hashcode() et equals()
 	
+	public String getCouverture() {
+		return couverture;
+	}
+
+	public void setCouverture(String couverture) {
+		this.couverture = couverture;
+	}
+
+	public String getFichier() {
+		return fichier;
+	}
+
+	public void setFichier(String fichier) {
+		this.fichier = fichier;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

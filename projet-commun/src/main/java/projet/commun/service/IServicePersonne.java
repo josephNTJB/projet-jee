@@ -32,7 +32,9 @@ public interface IServicePersonne {
 
 	void cancelDemand(int idAmi, int idPersonne) throws ExceptionValidation;
 
-	List<DtoPersonne> listerDemandes(int id);;
+	List<DtoPersonne> listerDemandes(int id);
+
+	void refuseInvitation(int idAmi, int id);;
 	
 
 }

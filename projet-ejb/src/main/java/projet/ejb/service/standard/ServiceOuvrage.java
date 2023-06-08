@@ -99,4 +99,27 @@ public class ServiceOuvrage implements IServiceOuvrage{
 		return liste;
 	}
 
+	@Override
+	public List<DtoOuvrage> listerPourAmis(int idPersonne) {
+		List<DtoOuvrage> liste = new ArrayList<>();
+		for (Ouvrage ouvrage : daoOuvrage.listerPourAmis(idPersonne)) {
+			liste.add(mapper.map(ouvrage));
+		}
+		return liste;
+	}
+
+	@Override
+	public int emprunter(int idOuvrage, int idPersonne) {
+		return daoOuvrage.insererEmprunt(idOuvrage,idPersonne);
+	}
+
+	@Override
+	public List<DtoOuvrage> listerPourEmprunts(int idPersonne) {
+		List<DtoOuvrage> liste = new ArrayList<>();
+		for (Ouvrage ouvrage : daoOuvrage.listerPourEmprunts(idPersonne)) {
+			liste.add(mapper.map(ouvrage));
+		}
+		return liste;
+	}
+
 }

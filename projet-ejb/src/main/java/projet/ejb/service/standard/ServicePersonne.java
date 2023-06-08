@@ -149,19 +149,11 @@ public class ServicePersonne implements IServicePersonne {
 
 	@Override
 	public void deleteFriend(int idAmi, int idPersonne) {
-		Amitie amitie1=new Amitie(idAmi,idPersonne,true);
-		Amitie amitie2=new Amitie(idPersonne,idAmi,true);
-		daoPersonne.DeleteFriendShip(amitie1);
-		daoPersonne.DeleteFriendShip(amitie2);
-		
+		daoPersonne.DeleteFriendShip(daoPersonne.findAmitie(idPersonne, idAmi));		
 	}
 	@Override
 	public void cancelDemand(int idAmi, int idPersonne) {
-		Amitie amitie1=new Amitie(idAmi,idPersonne,false);
-		Amitie amitie2=new Amitie(idPersonne,idAmi,false);
-		daoPersonne.DeleteFriendShip(amitie1);
-		daoPersonne.DeleteFriendShip(amitie2);
-		
+		daoPersonne.DeleteFriendShip(daoPersonne.findDemand(idPersonne, idAmi));
 	}
 
 	@Override
@@ -171,6 +163,12 @@ public class ServicePersonne implements IServicePersonne {
 			liste.add( mapper.map(personne) );
 		}
 		return liste;
+	}
+
+	@Override
+	public void refuseInvitation(int idAmi, int id) {
+		Amitie amitie=new Amitie(idAmi,id,false);
+		daoPersonne.DeleteFriendShip(amitie);
 	}
 
 }

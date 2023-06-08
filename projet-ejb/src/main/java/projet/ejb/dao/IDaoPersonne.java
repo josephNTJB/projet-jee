@@ -34,4 +34,8 @@ public interface IDaoPersonne {
 
 	List<Personne> listerDemandes(int id);
 
+	Amitie findAmitie(int idPerson, int idAmi);
+
+	Amitie findDemand(int idPersonne, int idAmi);
+
 }

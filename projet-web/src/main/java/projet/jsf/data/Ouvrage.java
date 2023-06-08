@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
+
 @SuppressWarnings("serial")
 public class Ouvrage implements Serializable {
 
@@ -30,6 +31,12 @@ public class Ouvrage implements Serializable {
 	private Personne		personne;
 
 	private List<Categorie>	categories = new ArrayList<>();
+	
+	@NotNull( message = "La couverture est obligatoire")
+	private String			couverture;
+	@NotNull( message = "La fichier est obligatoire")
+	private String			fichier;
+	
 
 	
 	// Constructeurs
@@ -37,12 +44,13 @@ public class Ouvrage implements Serializable {
 	public Ouvrage() {
 	}
 
-	public Ouvrage(Integer id, String nom, String auteur, Personne personne) {
-		super();
+	public Ouvrage(int id, Personne personne, String auteur, String nom,String fichier,String couverture) {
 		this.id = id;
-		this.nom = nom;
-		this.auteur = auteur;
 		this.personne = personne;
+		this.auteur = auteur;
+		this.nom = nom;
+		this.fichier = fichier;
+		this.couverture = couverture;
 	}
 	
 	
@@ -88,6 +96,23 @@ public class Ouvrage implements Serializable {
 		this.categories = categories;
 	}
 	
+	
+	public String getCouverture() {
+		return couverture;
+	}
+
+	public void setCouverture(String couverture) {
+		this.couverture = couverture;
+	}
+
+	public String getFichier() {
+		return fichier;
+	}
+
+	public void setFichier(String fichier) {
+		this.fichier = fichier;
+	}
+
 	public String categorieToString()
 	{
 		String format="";
@@ -122,6 +147,12 @@ public class Ouvrage implements Serializable {
 			return false;
 		var other = (Ouvrage) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Ouvrage [id=" + id + ", auteur=" + auteur + ", nom=" + nom + ", personne=" + personne + ", categories="
+				+ categories + "]";
 	}
 	
 

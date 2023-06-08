@@ -1,15 +1,27 @@
 package projet.jsf.model.standard;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import projet.commun.dto.DtoCompte;
 import projet.commun.dto.DtoPersonne;
@@ -151,13 +163,19 @@ public class ModelPersonne implements Serializable {
 			liste.removeAll(suppr);
 		}
 	//inviter un ami
-	public void invite(int idAmi) throws ExceptionValidation {
+	public String invite(int idAmi) throws ExceptionValidation {
 		servicePersonne.ajouterAmi(idAmi,courant.getId());
+		
+		return "relation";
     }
 	//valider une invitation
 		public void validInvitation(int idAmi) throws ExceptionValidation {
 			servicePersonne.validateInvitation(idAmi,courant.getId());
 	    }
+		//refuser une invitation
+		public void refuseInvitation(int idAmi) throws ExceptionValidation {
+			servicePersonne.refuseInvitation(idAmi,courant.getId());
+		}		
 	//recevoir la liste d'invitations
 	public List<Personne> getInvitations() throws ExceptionValidation {
 		actualiserCourant();
@@ -187,14 +205,16 @@ public class ModelPersonne implements Serializable {
 			}
 		}
     //supprimer une amitié -------mechant mechant :) -------------
-		public void brokeUp(int idAmi) throws ExceptionValidation {
+		public String brokeUp(int idAmi) throws ExceptionValidation {
 			try {
 				servicePersonne.deleteFriend(idAmi,courant.getId());
 				getFriends();
 				UtilJsf.messageInfo( ":( un ami en moins " );
+				
 			} catch (ExceptionValidation e) {
 				UtilJsf.messageError( e ); 
 			}
+			return "amis";
 	    }
 		 //supprimer une amitié -------noxious :) -------------
 		public void forget(int idAmi) throws ExceptionValidation {
@@ -227,5 +247,6 @@ public class ModelPersonne implements Serializable {
 	public void setListeAmis(List<Personne> listeAmis) {
 		this.listeAmis = listeAmis;
 	}
+	//concerne les ouvrages*********************************************
 	
 }

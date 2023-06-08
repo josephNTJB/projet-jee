@@ -7,7 +7,7 @@
 
 	 <f:metadata>
 		 <f:viewParam name="id" value="#{modelOuvrage.courant.id}" />
-		 <f:viewAction action="#{modelOuvrage.actualiserCourant()}" />
+		 <f:viewAction action="#{modelOuvrage.actualiserCourant(modelOuvrage.courant.id)}" />
 	 </f:metadata>
 
     <ui:define name="titre">Ouvrage</ui:define>
@@ -51,11 +51,17 @@
 			
 			</tr>
 		</table>
+		<br /> 
+
+		 <h:outputLabel for="ouvrage">Document :</h:outputLabel>
+         <h:inputFile id="ouvrage" value="#{modelOuvrage.file}" />
+  
+		<br /> 
+		<br /> 
 
 		<br /> 
-		<h:commandButton value="Valider" 
-			action="#{modelOuvrage.validerMiseAJour()}" />
-		<h:button value="Retour" outcome="ouvrage" />
+		<h:commandButton value="Valider" action="#{modelOuvrage.validerMiseAJour()}" />
+		<h:button value="Retour" outcome="ouvrage"/>
 	</h:form>
 
 	</ui:define>
