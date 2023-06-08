@@ -95,6 +95,16 @@ public class Compte implements Serializable  {
 		return roles.contains( role );
 	}
 
+	public String getListeRoles() {
+		
+		String format="";
+		
+		for (String role : roles)
+		{
+			format+= role.toLowerCase()+" ";
+		}
+		return format;
+	}
 	
 	// hashCode() & equals()
 

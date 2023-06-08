@@ -89,9 +89,21 @@ public class Compte  {
 		this.email = email;
 	}*/
 
-	/*public List<String> getRoles() {
+	public List<String> getRoles() {
 		return roles;
 	}
+	
+	public String getListeRoles() {
+		
+		String format="";
+		
+		for (String role : roles)
+		{
+			format+= role.toLowerCase()+" ";
+		}
+		return format;
+	}
+	/*
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
