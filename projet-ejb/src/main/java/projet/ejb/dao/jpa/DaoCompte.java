@@ -66,6 +66,15 @@ public class DaoCompte implements IDaoCompte {
 	}
 	@Override
 	@TransactionAttribute( NOT_SUPPORTED )
+	public List<Compte> listerToutSaufMoi(int idCompte) {
+		em.clear();
+		var jpql = "SELECT c FROM Compte c WHERE c.id <>: idCompte ORDER BY c.pseudo";
+		var query = em.createQuery( jpql, Compte.class );
+		query.setParameter("idCompte", idCompte);
+		return query.getResultList();
+	}
+	@Override
+	@TransactionAttribute( NOT_SUPPORTED )
 	public List<String> listerRoles(int idCompte) {
 		em.clear();
 		var jpql = "SELECT r.libelle FROM Role r WHERE r.id = :idCompte";
@@ -101,5 +110,6 @@ public class DaoCompte implements IDaoCompte {
 	    query.setParameter( "idCompte", idCompte );
         return query.getSingleResult() == 0;
 	}
+
 	
 }

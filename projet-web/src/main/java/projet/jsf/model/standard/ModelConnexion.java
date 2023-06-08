@@ -39,6 +39,10 @@ public class ModelConnexion {
 		}
 		return courant;
 	}
+	
+	public boolean isAdmin() {
+		 return compteActif != null && compteActif.isAdmininstrateur();
+		}
 
 	
 	// Actons

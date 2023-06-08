@@ -23,4 +23,6 @@ public interface IDaoCompte {
 
 	List<String> listerRoles(int idCompte);
 
+	List<Compte> listerToutSaufMoi(int idCompte);
+
 }
