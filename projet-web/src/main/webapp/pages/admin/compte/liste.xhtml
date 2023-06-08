@@ -26,8 +26,8 @@
 				<f:facet name="header">
 					<h:outputText value="Rôles" />
 				</f:facet>
-				<ui:repeat value="#{item.roles}" var="role" varStatus="status" >
-					#{item.roles}#{not status.last ? ', ' : ''}
+				<ui:repeat value="#{item.listeRoles}" var="role" varStatus="status" >
+					#{item.listeRoles}
 				</ui:repeat>
 			</h:column>
 			
